@@ -13,6 +13,7 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <allow-navigation href="https://corp-st-dev.4lapy.ru/*" />
     <allow-navigation href="https://cordova.vercel.app/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

@@ -25,7 +25,8 @@ function onDeviceReady() {
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     document.getElementById('deviceready').classList.add('ready');
     document.getElementById('browser').addEventListener('click', () => {
-        cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru', '_self')
+        console.log(cordova);
+        cordova.InAppBrowser.open('https://cordova.vercel.app/', '_self')
 
     })
 
