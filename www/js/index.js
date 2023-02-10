@@ -26,7 +26,7 @@ function onDeviceReady() {
     document.getElementById('deviceready').classList.add('ready');
     document.getElementById('browser').addEventListener('click', () => {
         console.log(cordova);
-        cordova.InAppBrowser.open('https://cordova.vercel.app/', '_self')
+        cordova.InAppBrowser.open('https://cordova.vercel.app/', '_blank')
 
     })
 

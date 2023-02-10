@@ -56,11 +56,11 @@
           "/*": [
             {
               "xml": "<uses-permission android:name=\"android.permission.CAMERA\" />",
-              "count": 10
+              "count": 11
             },
             {
               "xml": "<uses-feature android:name=\"android.hardware.camera.autofocus\" />",
-              "count": 8
+              "count": 9
             }
           ]
         }
