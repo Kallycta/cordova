@@ -28,5 +28,22 @@ function onDeviceReady() {
         cordova.InAppBrowser.open('https://cordova.vercel.app', '_self')
 
     })
+
+     document.getElementById('scan').addEventListener('click', () => {
+        console.log('click');
+        console.log(cordova);
+        cordova.plugins.barcodeScanner.scan(
+            function (result) {
+                alert("We got a barcode\n" +
+                      "Result: " + result.text + "\n" +
+                      "Format: " + result.format + "\n" +
+                      "Cancelled: " + result.cancelled);
+            },
+            function (error) {
+                alert("Scanning failed: " + error);
+            }
+         );
+
+    })
 }
 
