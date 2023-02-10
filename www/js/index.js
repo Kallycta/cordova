@@ -42,7 +42,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
                       "Cancelled: " + result.cancelled);
             },
             function (error) {
-                alert("Scanning failed: " + error);
+                alert("Scanning failed: " + error); 
             }
          );
  
