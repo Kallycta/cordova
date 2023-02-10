@@ -21,7 +21,7 @@
 // See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
 document.addEventListener('deviceready', onDeviceReady, false);
 
-function onDeviceReady() {
+ function  onDeviceReady()  {
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     document.getElementById('deviceready').classList.add('ready');
     document.getElementById('browser').addEventListener('click', () => {
@@ -30,10 +30,10 @@ function onDeviceReady() {
 
     })
 
-     document.getElementById('scan').addEventListener('click', () => {
+     document.getElementById('scan').addEventListener('click', async () => {
         console.log('click');
         console.log(cordova);
-        cordova.plugins.barcodeScanner.scan(
+      await  cordova.plugins.barcodeScanner.scan(
             function (result) {
                 alert("We got a barcode\n" +
                       "Result: " + result.text + "\n" +
