@@ -30,10 +30,10 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
     })
 
-     document.getElementById('scan').addEventListener('click', async () => {
+     document.getElementById('scan').addEventListener('click',  () => {
         console.log('click');
         console.log(cordova);
-      await  cordova.plugins.barcodeScanner.scan(
+       const ref =  cordova.plugins.barcodeScanner.scan(
             function (result) {
                 alert("We got a barcode\n" +
                       "Result: " + result.text + "\n" +
@@ -44,6 +44,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
                 alert("Scanning failed: " + error);
             }
          );
+         ref()
 
     })
 }
