@@ -6,12 +6,14 @@
     <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
         Apache Cordova Team
     </author>
+    <!-- <content src="index.html" /> -->
     <content src="index.html" />
     <access origin="*"></access>
     <allow-navigation href="https://corp-st-dev.4lapy.ru/*" />
     <allow-navigation href="https://cordova.vercel.app/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+    <plugin name="phonegap-plugin-barcodescanner" />
 
 
 </widget>
