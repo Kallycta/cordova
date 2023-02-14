@@ -36,18 +36,17 @@ document.addEventListener('deviceready', onDeviceReady, false);
         /* Close the InAppBrowser if we received the p
         roper message */
         if (params.data.action == 'scan') {
-            console.log(window.location.href);
-             localStorage.setItem('url', window.location.href)
             // scanBarcode()
         }
       }
        function postCordovaMessage(e) {
      if(e.target.id === 'scan') {
-
         // scanBarcode()
      }
-     console.log(e);
-     console.log(window.location);
+
+     console.log(window.location.href);
+     console.log(inAppBrowserRef);
+      localStorage.setItem('url', window.location.href)
         /* Send an action = 'close' JSON object to Cordova via postMessage API */
         var message = {action: 'scan'};
         if (!webkit.messageHandlers.cordova_iab) {
