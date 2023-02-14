@@ -30,6 +30,9 @@ document.addEventListener('deviceready', onDeviceReady, false);
         inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank', 'clearcache=yes,clearsessioncache=yes,location=yes,hardwareback=no,zoom=no');
         /* Add event listener to close the InAppBrowser */
         inAppBrowserRef.addEventListener('message', messageCallBack);
+        inAppBrowserRef.addEventListener('exit', () => {
+            inAppBrowserRef = null;
+        })
       }
 
        function messageCallBack(params) {
@@ -40,8 +43,9 @@ document.addEventListener('deviceready', onDeviceReady, false);
         }
       }
        function postCordovaMessage(e) {
-     if(e.target.id === 'scan') {
+     if(e.target.id === 'scan' && !inAppBrowserRef ) {
         scanBarcode()
+        return
      }
 
      console.log(window.location.href);
