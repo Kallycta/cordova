@@ -25,7 +25,8 @@ document.addEventListener('deviceready', onDeviceReady, false);
     let inAppBrowserRef;
     function openInAppBrowser() {
         /* Open URL */
-        let open_url = 'https://cordova.vercel.app';
+        let open_url = localStorage.getItem('url') || 'https://cordova.vercel.app';
+        console.log(localStorage.getItem('url'));
         inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank', 'clearcache=yes,clearsessioncache=yes,location=yes,hardwareback=no,zoom=no');
         /* Add event listener to close the InAppBrowser */
         inAppBrowserRef.addEventListener('message', messageCallBack);
@@ -35,15 +36,16 @@ document.addEventListener('deviceready', onDeviceReady, false);
         /* Close the InAppBrowser if we received the p
         roper message */
         if (params.data.action == 'scan') {
+            localStorage.setItem('url', window.location.href)
             scanBarcode()
         }
       }
       function postCordovaMessage(e) {
-     if(e.target.id) {
+     if(e.target.id === 'scan') {
+        localStorage.setItem('url', window.location.href)
         scanBarcode()
      }
      console.log(e);
-     console.log(window);
      console.log(window.location);
         /* Send an action = 'close' JSON object to Cordova via postMessage API */
         var message = {action: 'scan'};
