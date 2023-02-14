@@ -32,18 +32,19 @@ document.addEventListener('deviceready', onDeviceReady, false);
         inAppBrowserRef.addEventListener('message', messageCallBack);
       }
 
-      function messageCallBack(params) {
+       function messageCallBack(params) {
         /* Close the InAppBrowser if we received the p
         roper message */
         if (params.data.action == 'scan') {
-            localStorage.setItem('url', window.location.href)
-            scanBarcode()
+            console.log(window.location.href);
+             localStorage.setItem('url', window.location.href)
+            // scanBarcode()
         }
       }
-      function postCordovaMessage(e) {
+       function postCordovaMessage(e) {
      if(e.target.id === 'scan') {
-        localStorage.setItem('url', window.location.href)
-        scanBarcode()
+
+        // scanBarcode()
      }
      console.log(e);
      console.log(window.location);
