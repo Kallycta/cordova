@@ -42,6 +42,9 @@ document.addEventListener('deviceready', onDeviceReady, false);
      if(e.target.id) {
         scanBarcode()
      }
+     console.log(e);
+     console.log(window);
+     console.log(window.location);
         /* Send an action = 'close' JSON object to Cordova via postMessage API */
         var message = {action: 'scan'};
         if (!webkit.messageHandlers.cordova_iab) {
@@ -56,17 +59,21 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 
       function scanBarcode() {
+        if(inAppBrowserRef) inAppBrowserRef.close()
         console.log(cordova);
         console.log('click');
+
         cordova.plugins.barcodeScanner.scan(
             function (result) {
                 alert("We got a barcode\n" +
                         "Result: " + result.text + "\n" +
                         "Format: " + result.format + "\n" +
                         "Cancelled: " + result.cancelled);
+                        openInAppBrowser()
             },
             function (error) {
                 alert("Scanning failed: " + error);
+                openInAppBrowser()
             },
             {
                 preferFrontCamera : true, // iOS and Android
