@@ -36,16 +36,15 @@ document.addEventListener('deviceready', onDeviceReady, false);
         /* Close the InAppBrowser if we received the p
         roper message */
         if (params.data.action == 'scan') {
-            // scanBarcode()
+            scanBarcode()
         }
       }
        function postCordovaMessage(e) {
      if(e.target.id === 'scan') {
-        // scanBarcode()
+        scanBarcode()
      }
 
      console.log(window.location.href);
-     console.log(inAppBrowserRef);
       localStorage.setItem('url', window.location.href)
         /* Send an action = 'close' JSON object to Cordova via postMessage API */
         var message = {action: 'scan'};
