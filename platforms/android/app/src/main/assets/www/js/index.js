@@ -59,7 +59,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 
       function scanBarcode() {
-        if(inAppBrowserRef) inAppBrowserRef.close()
+        // if(inAppBrowserRef) inAppBrowserRef.close()
         console.log(cordova);
         console.log('click');
 
@@ -69,11 +69,11 @@ document.addEventListener('deviceready', onDeviceReady, false);
                         "Result: " + result.text + "\n" +
                         "Format: " + result.format + "\n" +
                         "Cancelled: " + result.cancelled);
-                        openInAppBrowser()
+                        // openInAppBrowser()
             },
             function (error) {
                 alert("Scanning failed: " + error);
-                openInAppBrowser()
+                // openInAppBrowser()
             },
             {
                 preferFrontCamera : true, // iOS and Android
