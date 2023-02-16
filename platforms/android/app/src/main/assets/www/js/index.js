@@ -103,8 +103,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
             });
 
             // browserWrap.appendChild(popup);
-            inAppBrowserRef.executeScript({code:"  console.log('script working'); document.body.innerHTML += `<div id='menu_item'><a href='https://cordova.vercel.app/urls/index.html'>Test!</a></div>`"})
-            inAppBrowserRef.executeScript({code:" document.getElementById('menu_item').appendChild(backButton)`"})
+            inAppBrowserRef.executeScript({code:"  console.log('script working'); document.body.innerHTML += `<div id='menu_item'><a href='https://cordova.vercel.app/urls/index.html'>Test!</a> <div onclick='() => {if (popup.canGoBack) {popup.goBack();}}'>back</div> </div>`"})
             inAppBrowserRef.insertCSS({ code: "#menu_item{background: red; width: 100px; height: 20px }" });
         }
    
