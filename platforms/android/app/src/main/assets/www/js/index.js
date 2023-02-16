@@ -83,7 +83,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
       function loadStartCallBack() {
         if(inAppBrowserRef) {
 
-          let  popup = document.createElement(isWebViewAvailable ? 'x-ms-webview' : 'iframe');
+          let  popup = document.createElement('iframe');
             if (popup instanceof HTMLIFrameElement) {
                 // eslint-disable-line no-undef
                 // For iframe we need to override bacground color of parent element here
@@ -103,8 +103,9 @@ document.addEventListener('deviceready', onDeviceReady, false);
             });
 
             // browserWrap.appendChild(popup);
-            inAppBrowserRef.executeScript({code:"  console.log('script working'); document.body.innerHTML += `<div class='menu_item'><a href='https://cordova.vercel.app/urls/index.html'>Test!</a>${popup} ${backButton}</div>`"})
-            inAppBrowserRef.insertCSS({ code: ".menu_item{background: red; width: 100px; height: 20px }" });
+            inAppBrowserRef.executeScript({code:"  console.log('script working'); document.body.innerHTML += `<div id='menu_item'><a href='https://cordova.vercel.app/urls/index.html'>Test!</a></div>`"})
+            inAppBrowserRef.executeScript({code:" document.getElementById('menu_item').appendChild(backButton)`"})
+            inAppBrowserRef.insertCSS({ code: "#menu_item{background: red; width: 100px; height: 20px }" });
         }
    
       } 
