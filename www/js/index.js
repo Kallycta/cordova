@@ -80,7 +80,9 @@ document.addEventListener('deviceready', onDeviceReady, false);
       }
       function loadStartCallBack() {
         if(inAppBrowserRef) {
+            console.log('start Func');
             inAppBrowserRef.executeScript({code:"\
+            console.log('script working')\
             document.body.innerHTML = `<div class='menu_item'>---</div>`\
             "})
             inAppBrowserRef.insertCSS({ code: ".menu_item{background: red; width: 100px; height: 20px }" });
