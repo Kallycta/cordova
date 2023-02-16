@@ -2,10 +2,11 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 
  function  onDeviceReady()  {
+    window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes');
     let inAppBrowserRef;
     function openInAppBrowser() {
         /* Open URL */
-        let open_url = localStorage.getItem('url') || 'https://cordova.vercel.app';
+        let open_url = localStorage.getItem('url') || 'https://corp-st-dev.4lapy.ru/mobile_app';
         console.log(localStorage.getItem('url'));
         inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank', 'clearcache=yes,clearsessioncache=yes,location=yes,hardwareback=no,zoom=no');
         /* Add event listener to close the InAppBrowser */
