@@ -83,7 +83,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
       function loadStartCallBack() {
         if(inAppBrowserRef) {
 
-          let  popup = document.createElement(isWebViewAvailable ? 'x-ms-webview' : 'iframe');
+          let  popup = document.createElement('iframe');
             if (popup instanceof HTMLIFrameElement) {
                 // eslint-disable-line no-undef
                 // For iframe we need to override bacground color of parent element here
