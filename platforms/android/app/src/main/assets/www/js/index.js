@@ -2,13 +2,18 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 
  function  onDeviceReady()  {
-    window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes');
+    // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
     let inAppBrowserRef;
+
     function openInAppBrowser() {
         /* Open URL */
-        let open_url = localStorage.getItem('url') || 'https://corp-st-dev.4lapy.ru/mobile_app';
-        console.log(localStorage.getItem('url'));
-        inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank', 'clearcache=yes,clearsessioncache=yes,location=yes,hardwareback=no,zoom=no');
+        let open_url = localStorage.getItem('url') || 'https://cordova.vercel.app/';
+        inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank', 'clearcache=yes,clearsessioncache=yes,location=yes,hardwareback=no,zoom=no, toolbar=no',);
+        
+        inAppBrowserRef.executeScript({code:"\
+        document.body.innerHTML += `<div class='menu_item'>---</div>`\
+        "})
+        inAppBrowserRef.insertCSS({ code: ".menu_item{background: red; width: 100px; height: 20px }" });
         /* Add event listener to close the InAppBrowser */
         inAppBrowserRef.addEventListener('message', messageCallBack);
         inAppBrowserRef.addEventListener('exit', () => {
