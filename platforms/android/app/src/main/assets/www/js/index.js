@@ -2,6 +2,7 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 
  function  onDeviceReady()  {
+
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
     let inAppBrowserRef;
 
@@ -82,7 +83,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
       function loadStartCallBack() {
         if(inAppBrowserRef) {
             console.log('start Func');
-            inAppBrowserRef.executeScript({code:"  console.log('script working'); document.body.innerHTML += `<div class='menu_item'><a> href='https://cordova.vercel.app/urls/index.html'</a></div>`"})
+            inAppBrowserRef.executeScript({code:"  console.log('script working'); document.body.innerHTML += `<div class='menu_item'><a href='https://cordova.vercel.app/urls/index.html'>Test!</a></div>`"})
             inAppBrowserRef.insertCSS({ code: ".menu_item{background: red; width: 100px; height: 20px }" });
         }
    
