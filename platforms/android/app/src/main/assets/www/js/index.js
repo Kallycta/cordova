@@ -82,12 +82,33 @@ document.addEventListener('deviceready', onDeviceReady, false);
       }
       function loadStartCallBack() {
         if(inAppBrowserRef) {
-            console.log('start Func');
-            inAppBrowserRef.executeScript({code:"  console.log('script working'); document.body.innerHTML += `<div class='menu_item'><a href='https://cordova.vercel.app/urls/index.html'>Test!</a></div>`"})
+
+          let  popup = document.createElement(isWebViewAvailable ? 'x-ms-webview' : 'iframe');
+            if (popup instanceof HTMLIFrameElement) {
+                // eslint-disable-line no-undef
+                // For iframe we need to override bacground color of parent element here
+                // otherwise pages without background color set will have transparent background
+                popup.style.backgroundColor = 'white';
+            }
+            popup.style.borderWidth = '0px';
+            popup.style.width = '100%';
+            popup.style.marginBottom = '-5px';
+            backButton = document.createElement('div');
+            backButton.innerText = 'back';
+            backButton.className = 'app-bar-action action-back';
+            backButton.addEventListener('click', function (e) {
+                if (popup.canGoBack) {
+                    popup.goBack();
+                }
+            });
+
+            // browserWrap.appendChild(popup);
+            inAppBrowserRef.executeScript({code:"  console.log('script working'); document.body.innerHTML += `<div class='menu_item'><a href='https://cordova.vercel.app/urls/index.html'>Test!</a>${popup} ${backButton}</div>`"})
             inAppBrowserRef.insertCSS({ code: ".menu_item{background: red; width: 100px; height: 20px }" });
         }
    
       } 
+
 
     // window.open = cordova.InAppBrowser.open('https://cordova.vercel.app', '_blank', 'location=no');
     document.getElementById('browser').addEventListener('click', openInAppBrowser)
