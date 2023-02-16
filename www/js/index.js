@@ -87,10 +87,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
             // browserWrap.appendChild(popup);
             // inAppBrowserRef.executeScript({code:"  console.log('script working'); document.body.innerHTML += `<div id='menu_item'><a href='https://cordova.vercel.app/urls/index.html'>Test!</a> <br> <div id='back'>back</div> </div>`"})
-            inAppBrowserRef.executeScript({code:"  var popup = document.createElement(isWebViewAvailable ? 'x-ms-webview' : 'iframe');\
-            if (popup instanceof HTMLIFrameElement) {\
-                popup.style.backgroundColor = 'white';\
-            };\
+            inAppBrowserRef.executeScript({code:"  var popup = document.createElement('iframe');\
             popup.style.borderWidth = '0px';\
             popup.style.width = '100%';\
             popup.style.marginBottom = '-5px';\
