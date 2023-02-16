@@ -8,11 +8,12 @@ document.addEventListener('deviceready', onDeviceReady, false);
     function openInAppBrowser() {
         /* Open URL */
         let open_url = localStorage.getItem('url') || 'https://cordova.vercel.app/';
-        inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank', 'clearcache=yes,clearsessioncache=yes,location=yes,hardwareback=no,zoom=no, toolbar=no',);
+        inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank', 'clearcache=yes,clearsessioncache=yes,location=yes,hardwareback=no,zoom=no,toolbar=no');
         
 
         /* Add event listener to close the InAppBrowser */
         inAppBrowserRef.addEventListener('message', messageCallBack);
+        inAppBrowserRef.addEventListener('loadstart', loadStartCallBack);
         inAppBrowserRef.addEventListener('exit', () => {
             inAppBrowserRef = null;
         })
@@ -80,7 +81,9 @@ document.addEventListener('deviceready', onDeviceReady, false);
       }
       function loadStartCallBack() {
         if(inAppBrowserRef) {
+            console.log('start Func');
             inAppBrowserRef.executeScript({code:"\
+            console.log('script working')\
             document.body.innerHTML = `<div class='menu_item'>---</div>`\
             "})
             inAppBrowserRef.insertCSS({ code: ".menu_item{background: red; width: 100px; height: 20px }" });
@@ -91,7 +94,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
     // window.open = cordova.InAppBrowser.open('https://cordova.vercel.app', '_blank', 'location=no');
     document.getElementById('browser').addEventListener('click', openInAppBrowser)
     document.getElementById('scan').addEventListener('click',postCordovaMessage)
-    inAppBrowserRef.addEventListener('loadstart', loadStartCallBack);
+
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
 
 }
