@@ -86,25 +86,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 
             // browserWrap.appendChild(popup);
-            // inAppBrowserRef.executeScript({code:"  console.log('script working'); document.body.innerHTML += `<div id='menu_item'><a href='https://cordova.vercel.app/urls/index.html'>Test!</a> <br> <div id='back'>back</div> </div>`"})
-            inAppBrowserRef.executeScript({code:"  var popup = document.createElement(isWebViewAvailable ? 'x-ms-webview' : 'iframe');\
-            if (popup instanceof HTMLIFrameElement) {\
-                popup.style.backgroundColor = 'white';\
-            };\
-            popup.style.borderWidth = '0px';\
-            popup.style.width = '100%';\
-            popup.style.marginBottom = '-5px';\
-            document.getElementById('menu').appendChild(popup);\
-            backButton = document.createElement('div');\
-            backButton.innerText = 'back';\
-            backButton.className = 'app-bar-action action-back';\
-            backButton.addEventListener('click', function (e) {\
-                if (popup.canGoBack) {\
-                    popup.goBack();\
-                }\
-            });\
-            document.getElementById('menu').appendChild(popup);\
-            document.getElementById('menu').innerHTML += <a href='https://cordova.vercel.app/urls/index.html'></a> "})
+            inAppBrowserRef.executeScript({code:"  console.log('script working'); document.body.innerHTML += `<div id='menu_item'><a href='https://cordova.vercel.app/urls/index.html'>Test!</a> <br> <div  id='back' onclick='history.back(-1)' >back</div> </div>`"})
             inAppBrowserRef.insertCSS({ code: "#menu_item{background: red; width: 100%; height: 50px }" });
 
         }
@@ -120,3 +102,4 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 }
 
+inAppBrowserRef.insertCSS({ code: "#menu_item{background: red; width: 100%; height: 50px }" });
