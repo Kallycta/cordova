@@ -2,13 +2,14 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 
  function  onDeviceReady()  {
-
+    setTimeout(() => {
+        
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
     let inAppBrowserRef;
 
     function openInAppBrowser() {
         /* Open URL */
-        let open_url = localStorage.getItem('url') || 'https://corp-st-dev.4lapy.ru/mobile_app/';
+        let open_url = localStorage.getItem('url') || 'https://corp-st-dev.4lapy.ru/mobile_app';
         inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank','toolbar=no');
         
 
@@ -86,8 +87,10 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 
             // browserWrap.appendChild(popup);
-            inAppBrowserRef.executeScript({code:"  console.log('script working'); document.body.innerHTML += `<div id='menu_item'><a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'>Test!</a> <br> <div  id='back' onclick='history.back(-1)' >back</div> </div>`"})
+            inAppBrowserRef.executeScript({code:"  console.log('script working'); setTimeout(() => { document.body.insertAdjacentHTML('afterbegin',`<div id='menu_item'><a href='#'>Test!</a> <br> <div  id='back' onclick='history.back(-1)' >back</div> </div>`) }, 500)"})
+          setTimeout(() => {
             inAppBrowserRef.insertCSS({ code: "#menu_item{background: red; width: 100%; height: 50px }" });
+          },500)
 
         }
    
@@ -99,7 +102,8 @@ document.addEventListener('deviceready', onDeviceReady, false);
     document.getElementById('scan').addEventListener('click',postCordovaMessage)
 
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
+    }, 3000)
 
 }
 
-inAppBrowserRef.insertCSS({ code: "#menu_item{background: red; width: 100%; height: 50px }" });
+
