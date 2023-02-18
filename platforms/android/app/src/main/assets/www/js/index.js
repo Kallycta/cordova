@@ -9,6 +9,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
     let inAppBrowserRef;
   console.log(history)
     function openInAppBrowser() {
+      console.log(history)
         /* Open URL */
         let open_url = localStorage.getItem('url') || 'https://cordova.vercel.app/';
         inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank','toolbar=no');
@@ -83,15 +84,16 @@ document.addEventListener('deviceready', onDeviceReady, false);
       }
       function loadStartCallBack() {
         if(inAppBrowserRef) {
+          inAppBrowserRef.addEventListener('loadstop', function() {
             inAppBrowserRef.executeScript({code:"  console.log('script working'); setTimeout(() => { document.body.insertAdjacentHTML('afterbegin',\
             `<div id='menu_item'>\
-            <div id='first'></div>\
+            <div id='first'> <span></span> <span></span> <span></span> </div>\
             <a href='#'>Test!</a> <br> \
             <div id='back'onclick='history.back(-1)' >back</div> </div>`) \
           }, 500)"})
-          setTimeout(() => {
-            inAppBrowserRef.insertCSS({ code: "#menu_item{background: #e0e0e0; width: 100%; height: 50px , position: fixed}" });
-          },500)
+          ref.insertCSS({code: "#menu_item{background: #e0e0e0;width: 100%;height: 50px;position: fixed;} #first{background:red}"});
+        });
+        
 
         }
    
