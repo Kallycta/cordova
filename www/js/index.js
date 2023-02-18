@@ -92,7 +92,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
                  <div id='first'> <span></span> <span></span> <span></span></div></a> \
               <a href='https://corp-st-dev.4lapy.ru/mobile_app'> \
                   <img src='https://corp-st-dev.4lapy.ru/local/templates/light_red/images/new-logo.svg' id='logoImg'></a> \
-              <div id='search'><a href='#'>Search</a></div> </div>  \
+              <div id='search' onclick='history.back()><a href='#'>Search</a></div> </div>  \
             </div>` )}, 200)"})
 
           setTimeout(() => {
@@ -110,7 +110,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 
     // window.open = cordova.InAppBrowser.open('https://cordova.vercel.app', '_blank', 'location=no');
-    // <div id='back'onclick='history.back(-1)' >back</div>
+    // <div id='back'onclick='history.back()' >back</div>
     document.getElementById('browser').addEventListener('click', openInAppBrowser)
     document.getElementById('scan').addEventListener('click',postCordovaMessage)
 
