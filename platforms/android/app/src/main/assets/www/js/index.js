@@ -7,7 +7,8 @@ document.addEventListener('deviceready', onDeviceReady, false);
         
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
     let inAppBrowserRef;
-  console.log(history)
+  console.log(window.history)
+  console.log(location)
     function openInAppBrowser() {
       console.log(history)
         /* Open URL */
@@ -84,15 +85,23 @@ document.addEventListener('deviceready', onDeviceReady, false);
       }
       function loadStartCallBack() {
         if(inAppBrowserRef) {
-          inAppBrowserRef.addEventListener('loadstop', function() {
+
             inAppBrowserRef.executeScript({code:"  console.log('script working'); setTimeout(() => { document.body.insertAdjacentHTML('afterbegin',\
             `<div id='menu_item'>\
-            <div id='first'> <span></span> <span></span> <span></span> </div>\
-            <a href='#'>Test!</a> <br> \
-            <div id='back'onclick='history.back(-1)' >back</div> </div>`) \
-          }, 500)"})
-          ref.insertCSS({code: "#menu_item{background: #e0e0e0;width: 100%;height: 50px;position: fixed;} #first{background:red}"});
-        });
+              <a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'>\
+                 <div id='first'> <span></span> <span></span> <span></span></div></a> \
+              <a href='https://corp-st-dev.4lapy.ru/mobile_app'> \
+                  <img src='https://corp-st-dev.4lapy.ru/local/templates/light_red/images/new-logo.svg' id='logoImg'></a> \
+              <div id='search'><a href='#'>Search</a></div> </div>  \
+            </div>` )}, 200)"})
+
+          setTimeout(() => {
+            inAppBrowserRef.insertCSS({code: "#menu_item{background: #e0e0e0;width: 100%;height: 50px;position: fixed; display: flex;justify-content: space-around;align-items: center; z-index: 25}\
+                                            #menu_item a{display:block}\
+                                            #first span{background: white; width: 30px; height: 2px; display: block; margin-bottom: 5px} \
+                                            #search a{color: black; text-decoration: none} #logoImg {width: 150px; }"});
+          }, 200)
+     
         
 
         }
@@ -101,13 +110,13 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 
     // window.open = cordova.InAppBrowser.open('https://cordova.vercel.app', '_blank', 'location=no');
-
+    // <div id='back'onclick='history.back(-1)' >back</div>
     document.getElementById('browser').addEventListener('click', openInAppBrowser)
     document.getElementById('scan').addEventListener('click',postCordovaMessage)
 
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
-    // openInAppBrowser()
-    },0)
+    openInAppBrowser()
+    },100)
 
 }
 
