@@ -9,6 +9,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
     let inAppBrowserRef;
   console.log(history)
     function openInAppBrowser() {
+      console.log(history)
         /* Open URL */
         let open_url = localStorage.getItem('url') || 'https://cordova.vercel.app/';
         inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank','toolbar=no');
