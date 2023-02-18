@@ -91,7 +91,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
             <a href='#'>Test!</a> <br> \
             <div id='back'onclick='history.back(-1)' >back</div> </div>`) \
           }, 500)"})
-          ref.insertCSS({code: "#menu_item{background: #e0e0e0;width: 100%;height: 50px;position: fixed;} #first{background:red}"});
+          inAppBrowserRef.insertCSS({code: "#menu_item{background: #e0e0e0;width: 100%;height: 50px;position: fixed;} #first{background:red}"});
         });
         
 
