@@ -3,15 +3,15 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
  function  onDeviceReady()  {
     setTimeout(() => {
+
         
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
     let inAppBrowserRef;
-
+  console.log(history)
     function openInAppBrowser() {
         /* Open URL */
-        let open_url = localStorage.getItem('url') || 'https://corp-st-dev.4lapy.ru/mobile_app';
+        let open_url = localStorage.getItem('url') || 'https://cordova.vercel.app/';
         inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank','toolbar=no');
-        
 
         /* Add event listener to close the InAppBrowser */
         inAppBrowserRef.addEventListener('message', messageCallBack);
@@ -83,13 +83,14 @@ document.addEventListener('deviceready', onDeviceReady, false);
       }
       function loadStartCallBack() {
         if(inAppBrowserRef) {
-
-
-
-            // browserWrap.appendChild(popup);
-            inAppBrowserRef.executeScript({code:"  console.log('script working'); setTimeout(() => { document.body.insertAdjacentHTML('afterbegin',`<div id='menu_item'><a href='#'>Test!</a> <br> <div  id='back' onclick='history.back(-1)' >back</div> </div>`) }, 500)"})
+            inAppBrowserRef.executeScript({code:"  console.log('script working'); setTimeout(() => { document.body.insertAdjacentHTML('afterbegin',\
+            `<div id='menu_item'>\
+            <div id='first'></div>\
+            <a href='#'>Test!</a> <br> \
+            <div id='back'onclick='history.back(-1)' >back</div> </div>`) \
+          }, 500)"})
           setTimeout(() => {
-            inAppBrowserRef.insertCSS({ code: "#menu_item{background: red; width: 100%; height: 50px , position: fixed}" });
+            inAppBrowserRef.insertCSS({ code: "#menu_item{background: #e0e0e0; width: 100%; height: 50px , position: fixed}" });
           },500)
 
         }
@@ -98,11 +99,13 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 
     // window.open = cordova.InAppBrowser.open('https://cordova.vercel.app', '_blank', 'location=no');
+
     document.getElementById('browser').addEventListener('click', openInAppBrowser)
     document.getElementById('scan').addEventListener('click',postCordovaMessage)
 
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
-    }, 3000)
+    // openInAppBrowser()
+    },0)
 
 }
 
