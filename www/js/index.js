@@ -92,7 +92,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
                  <div id='first'> <span></span> <span></span> <span></span></div></a> \
               <a href='https://corp-st-dev.4lapy.ru/mobile_app'> \
                   <img src='https://corp-st-dev.4lapy.ru/local/templates/light_red/images/new-logo.svg' id='logoImg'></a> \
-              <div id='search' onclick='history.back()'>Search</div>\
+              <div id='search' onclick='history.back(-1)'>Search</div>\
             </div>` )}, 200)"})
 
           setTimeout(() => {
