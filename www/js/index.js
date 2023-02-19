@@ -12,8 +12,8 @@ document.addEventListener('deviceready', onDeviceReady, false);
     function openInAppBrowser() {
       console.log(history)
         /* Open URL */
-        let open_url = localStorage.getItem('url') || 'https://cordova.vercel.app/';
-        inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank','toolbar=no');
+        let open_url = localStorage.getItem('url') || 'https://corp-st-dev.4lapy.ru/mobile_app';
+        inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank','toolbar=no,location=no');
 
         /* Add event listener to close the InAppBrowser */
         inAppBrowserRef.addEventListener('message', messageCallBack);
@@ -83,26 +83,30 @@ document.addEventListener('deviceready', onDeviceReady, false);
             }
             );
       }
+      //  <a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'> <div id='first'> <span></span> <span></span> <span></span> </div> </a>
       function loadStartCallBack() {
         if(inAppBrowserRef) {
 
-            inAppBrowserRef.executeScript({code:"  console.log('script working'); setTimeout(() => { document.body.insertAdjacentHTML('afterbegin',\
+            inAppBrowserRef.executeScript({code:"  console.log(location); setTimeout(() => { \
+               document.body.insertAdjacentHTML('afterbegin',\
             `<div id='menu_item'>\
-              <a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'>\
-                 <div id='first'> <span></span> <span></span> <span></span></div></a> \
+            ${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' || window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/?login=yes'  ? `<a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'> <div id='first'> <span></span> <span></span> <span></span></div></a> ` : `<div id='arrow' onclick='history.back(-1)'> <div>&#60;</div> </div>` } \
               <a href='https://corp-st-dev.4lapy.ru/mobile_app'> \
-                  <img src='https://corp-st-dev.4lapy.ru/local/templates/light_red/images/new-logo.svg' id='logoImg'></a> \
-              <div id='search' onclick='history.back(-1)'>Search</div>\
-            </div>` )}, 200)"})
-
+                  <img src='https://corp-st-dev.4lapy.ru/local/templates/light_red/images/new-logo.svg' id='logoImg'> </a> \
+              <div id='search'> <a href='#' >Search</a></div>\
+            </div>` )}, 300)"})
+            
           setTimeout(() => {
-            inAppBrowserRef.insertCSS({code: "#menu_item{background: #e0e0e0;width: 100%;height: 50px;position: fixed; display: flex;justify-content: space-around;align-items: center; z-index: 25}\
+            // inAppBrowserRef.executeScript({file: 'inAppScript.js'})
+            inAppBrowserRef.insertCSS({code: "#menu_item{background: #e0e0e0;width: 100%;height: 50px; display: flex;justify-content: space-around;align-items: center; z-index: 25}\
                                             #menu_item a{display:block}\
                                             #first span{background: white; width: 30px; height: 2px; display: block; margin-bottom: 5px} \
-                                            #search a{color: black; text-decoration: none} #logoImg {width: 150px; }"});
-          }, 200)
+                                            #search a{color: black; text-decoration: none} #logoImg {width: 150px; }\
+                                            #arrow {color: white; font-size: 32px; font-weight: 700; align-self: baseline; } " });
+          }, 300)
      
-        
+          // `${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' ? <a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'> <div id='first'> <span></span> <span></span> <span></span></div></a> : <div id='arrow' onclick='history.back(-1)'> !!! </div> }`
+          // ${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' || 'https://corp-st-dev.4lapy.ru/mobile_app/?login=yes' ? 1 : 2} \
 
         }
    
