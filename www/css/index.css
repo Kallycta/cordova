@@ -3,13 +3,14 @@ body {
   padding: 0;
 }
 .app {
-  background-color: #efefef;
+  background-color: white;
   height: 100vh;
 }
 
 header {
   border-bottom: 2px black solid;
   padding: 20px 0;
+  background-color: #efefef;
 }
 
 header img {
@@ -22,15 +23,13 @@ header img {
   border: 0;
   width: 80px;
   padding: 0px;
-  margin-top: 90px;
-  margin-left: calc(50% - 40px);
-  margin-left: -webkit-calc(50% - 40px);
-  margin-left: -moz-calc(50% - 40px);
+  margin: 0 auto;
+  margin-top: 250px;
 }
 
 .spin {
-  height: 70px;
-  width: 70px;
+  height: 100px;
+  width: 100px;
   border-radius: 50%;
   border: dashed 5px #fe5000;
   -webkit-animation-name: spin;
