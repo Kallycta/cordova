@@ -1,5 +1,6 @@
 
 document.addEventListener('deviceready', onDeviceReady, false);
+document.addEventListener("resume", onDeviceReady, false);
 
  function  onDeviceReady()  {
      
@@ -18,6 +19,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
         inAppBrowserRef.addEventListener('loadstart', loadStartCallBack);
         inAppBrowserRef.addEventListener('exit', () => {
             inAppBrowserRef = null;
+            navigator.app.exitApp();
         })
       }
 
@@ -81,7 +83,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
             }
             );
       }
-      //  <a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'> <div id='first'> <span></span> <span></span> <span></span> </div> </a>
+
       function loadStartCallBack() {
         if(inAppBrowserRef) {
 
@@ -95,7 +97,6 @@ document.addEventListener('deviceready', onDeviceReady, false);
             </div>` )}, 500)"})
             
           setTimeout(() => {
-            // inAppBrowserRef.executeScript({file: 'inAppScript.js'})
             inAppBrowserRef.insertCSS({code: "#menu_item{background: #e0e0e0;width: 100%;height: 50px; display: flex;justify-content: space-around;align-items: center; z-index: 25}\
                                             #menu_item a{display:block}\
                                             #first span{background: white; width: 30px; height: 2px; display: block; margin-bottom: 5px} \
@@ -103,16 +104,11 @@ document.addEventListener('deviceready', onDeviceReady, false);
                                             #arrow {color: white; font-size: 32px; font-weight: 700; align-self: baseline; } " });
           }, 500)
      
-          // `${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' ? <a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'> <div id='first'> <span></span> <span></span> <span></span></div></a> : <div id='arrow' onclick='history.back(-1)'> !!! </div> }`
-          // ${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' || 'https://corp-st-dev.4lapy.ru/mobile_app/?login=yes' ? 1 : 2} \
-
         }
    
       } 
 
 
-    // window.open = cordova.InAppBrowser.open('https://cordova.vercel.app', '_blank', 'location=no');
-    // <div id='back'onclick='history.back()' >back</div>
     document.getElementById('browser').addEventListener('click', openInAppBrowser)
     document.getElementById('scan').addEventListener('click',postCordovaMessage)
 
@@ -123,3 +119,4 @@ document.addEventListener('deviceready', onDeviceReady, false);
 }
 
 
+onDeviceReady()
