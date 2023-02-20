@@ -1,6 +1,6 @@
 {
-  "name": "com.cordova.4lapilife",
-  "displayName": "4LapiLife",
+  "name": "io.cordova.hellocordova",
+  "displayName": "HelloCordova",
   "version": "1.0.0",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "index.js",
@@ -14,7 +14,6 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "cordova-android": "^10.1.2",
-    "cordova-ios": "^6.2.0",
     "cordova-plugin-inappbrowser": "^5.0.0",
     "phonegap-plugin-barcodescanner": "^8.1.0"
   },
