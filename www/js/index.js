@@ -1,13 +1,12 @@
 
 document.addEventListener('deviceready', onDeviceReady, false);
-document.addEventListener("resume", onDeviceReady, false);
+
 
  function  onDeviceReady()  {
      
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
     let inAppBrowserRef;
-  console.log(window.history)
-  console.log(location)
+
     function openInAppBrowser() {
       console.log(history)
         /* Open URL */
@@ -16,7 +15,10 @@ document.addEventListener("resume", onDeviceReady, false);
 
         /* Add event listener to close the InAppBrowser */
         inAppBrowserRef.addEventListener('message', messageCallBack);
-        inAppBrowserRef.addEventListener('loadstart', loadStartCallBack);
+        inAppBrowserRef.addEventListener('loadstop', loadStartCallBack);
+        inAppBrowserRef.addEventListener('loadstart', () => {
+          
+        });
         inAppBrowserRef.addEventListener('exit', () => {
             inAppBrowserRef = null;
             navigator.app.exitApp();
@@ -85,28 +87,24 @@ document.addEventListener("resume", onDeviceReady, false);
       }
 
       function loadStartCallBack() {
-        if(inAppBrowserRef) {
 
-            inAppBrowserRef.executeScript({code:"  console.log(location); setTimeout(() => { \
-               document.body.insertAdjacentHTML('afterbegin',\
-            `<div id='menu_item'>\
-            ${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' || window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/?login=yes'  ? `<a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'> <div id='first'> <span></span> <span></span> <span></span></div></a> ` : `<div id='arrow' onclick='history.back(-1)'> <div>&#60;</div> </div>` } \
-              <a href='https://corp-st-dev.4lapy.ru/mobile_app'> \
-                  <img src='https://corp-st-dev.4lapy.ru/local/templates/light_red/images/new-logo.svg' id='logoImg'> </a> \
-              <div id='search'> <a href='#' >Search</a></div>\
-            </div>` )}, 500)"})
-            
-          setTimeout(() => {
-            inAppBrowserRef.insertCSS({code: "#menu_item{background: #e0e0e0;width: 100%;height: 50px; display: flex;justify-content: space-around;align-items: center; z-index: 25}\
-                                            #menu_item a{display:block}\
-                                            #first span{background: white; width: 30px; height: 2px; display: block; margin-bottom: 5px} \
-                                            #search a{color: black; text-decoration: none} #logoImg {width: 150px; }\
-                                            #arrow {color: white; font-size: 32px; font-weight: 700; align-self: baseline; } " });
-          }, 500)
-     
+          inAppBrowserRef.executeScript({code:"if (document.getElementById('menu_item') == null){ \
+          document.body.insertAdjacentHTML('afterbegin',\
+       `<div id='menu_item'>\
+       ${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' || window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/?login=yes'  ? `<a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'> <div id='first'> <span></span> <span></span> <span></span></div></a> ` : `<div id='arrow' onclick='history.back(-1)'> <div>&#60;</div> </div>` } \
+         <a href='https://corp-st-dev.4lapy.ru/mobile_app'> \
+             <img src='https://corp-st-dev.4lapy.ru/local/templates/light_red/images/new-logo.svg' id='logoImg'> </a> \
+         <div id='search'> <a href='#' >Search</a></div>\
+       </div>`) }"})
+       
+
+       inAppBrowserRef.insertCSS({code: "#menu_item{background: #e0e0e0;width: 100%;height: 50px; display: flex;justify-content: space-around;align-items: center; z-index: 25}\
+                                       #menu_item a{display:block}\
+                                       #first span{background: white; width: 30px; height: 2px; display: block; margin-bottom: 5px} \
+                                       #search a{color: black; text-decoration: none} #logoImg {width: 150px; }\
+                                       #arrow {color: white; font-size: 32px; font-weight: 700; align-self: baseline; } " });
         }
-   
-      } 
+           
 
 
     document.getElementById('browser').addEventListener('click', openInAppBrowser)
