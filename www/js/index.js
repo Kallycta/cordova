@@ -17,7 +17,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
         inAppBrowserRef.addEventListener('message', messageCallBack);
         inAppBrowserRef.addEventListener('loadstop', loadStartCallBack);
         inAppBrowserRef.addEventListener('loadstart', () => {
-          
+          inAppBrowserRef.executeScript({code: "console.log('start')"})
         });
         inAppBrowserRef.addEventListener('exit', () => {
             inAppBrowserRef = null;
@@ -88,7 +88,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
       function loadStartCallBack() {
 
-          inAppBrowserRef.executeScript({code:"if (document.getElementById('menu_item') == null){ \
+          inAppBrowserRef.executeScript({code:"console.log('stop');if (document.getElementById('menu_item') == null){ \
           document.body.insertAdjacentHTML('afterbegin',\
        `<div id='menu_item'>\
        ${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' || window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/?login=yes'  ? `<a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'> <div id='first'> \

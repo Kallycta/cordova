@@ -8,8 +8,7 @@ body {
 }
 
 header {
-  border-bottom: 2px black solid;
-  padding: 20px 0;
+  padding: 30px 0;
   background-color: #efefef;
 }
 
@@ -21,7 +20,7 @@ header img {
 
 .square {
   border: 0;
-  width: 80px;
+  width: 109px;
   padding: 0px;
   margin: 0 auto;
   margin-top: 250px;
@@ -46,3 +45,5 @@ header img {
     -webkit-transform: rotate(360deg);
   }
 }
+
+padding: env(safe-area-inset-top);
