@@ -2,9 +2,7 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 
  function  onDeviceReady()  {
-    setTimeout(() => {
-
-        
+     
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
     let inAppBrowserRef;
   console.log(window.history)
@@ -94,7 +92,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
               <a href='https://corp-st-dev.4lapy.ru/mobile_app'> \
                   <img src='https://corp-st-dev.4lapy.ru/local/templates/light_red/images/new-logo.svg' id='logoImg'> </a> \
               <div id='search'> <a href='#' >Search</a></div>\
-            </div>` )}, 300)"})
+            </div>` )}, 500)"})
             
           setTimeout(() => {
             // inAppBrowserRef.executeScript({file: 'inAppScript.js'})
@@ -103,7 +101,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
                                             #first span{background: white; width: 30px; height: 2px; display: block; margin-bottom: 5px} \
                                             #search a{color: black; text-decoration: none} #logoImg {width: 150px; }\
                                             #arrow {color: white; font-size: 32px; font-weight: 700; align-self: baseline; } " });
-          }, 300)
+          }, 500)
      
           // `${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' ? <a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'> <div id='first'> <span></span> <span></span> <span></span></div></a> : <div id='arrow' onclick='history.back(-1)'> !!! </div> }`
           // ${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' || 'https://corp-st-dev.4lapy.ru/mobile_app/?login=yes' ? 1 : 2} \
@@ -120,7 +118,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     openInAppBrowser()
-    },100)
+
 
 }
 
