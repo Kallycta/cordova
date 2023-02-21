@@ -16,6 +16,7 @@
     "cordova-android": "^10.1.2",
     "cordova-plugin-inappbrowser": "^5.0.0",
     "cordova-plugin-splashscreen": "^6.0.2",
+    "cordova-plugin-statusbar": "^3.0.0",
     "phonegap-plugin-barcodescanner": "^8.1.0"
   },
   "cordova": {
@@ -27,7 +28,8 @@
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "cordova-plugin-splashscreen": {}
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-statusbar": {}
     }
   }
 }

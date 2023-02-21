@@ -15,6 +15,8 @@
     <allow-intent href="https://*/*" />
     <plugin name="phonegap-plugin-barcodescanner" />
     <preference name="SplashScreen" value="logo" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarBackgroundColor" value="#EFEFEF" />
 
 
 </widget>
