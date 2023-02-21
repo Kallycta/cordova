@@ -17,7 +17,7 @@ setTimeout
         inAppBrowserRef.addEventListener('message', messageCallBack);
         inAppBrowserRef.addEventListener('loadstop', loadStartCallBack);
         inAppBrowserRef.addEventListener('loadstart', () => {
-          inAppBrowserRef.executeScript({code: "console.log('start'); document.addEventListener('DOMContentLoaded', () => {document.body.style.display = 'none'}); "})
+          inAppBrowserRef.executeScript({code: "console.log('start'); document.addEventListener('readystatechange', () => { if (document.readyState == 'interactive') {document.body.style.display = 'none'; }}); "})
           inAppBrowserRef.insertCSS({code: "body{transition: opacity 0.6s ease} "})
         });
         inAppBrowserRef.addEventListener('exit', () => {
@@ -90,6 +90,8 @@ setTimeout
       function loadStartCallBack() {
 
           inAppBrowserRef.executeScript({code:"console.log('stop');  if (document.getElementById('menu_item') == null){ \
+            console.log(document.cookie.BITRIX_SM_UIDL);\
+            console.log(window.localStorage);\
           document.body.insertAdjacentHTML('afterbegin',\
        `<div id='block'><div id='menu_item'>\
        ${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' || window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/?login=yes'  ? `<a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'> <div id='first'> \
@@ -97,11 +99,13 @@ setTimeout
     <path fill-rule='evenodd' clip-rule='evenodd' fill='#1D1D1B'\
         d='M3.66699 6.41667C3.66699 5.91041 4.0774 5.5 4.58366 5.5H17.417C17.9233 5.5 18.3337 5.91041 18.3337 6.41667C18.3337 6.92293 17.9233 7.33333 17.417 7.33333H4.58366C4.0774 7.33333 3.66699 6.92293 3.66699 6.41667ZM3.66699 11C3.66699 10.4937 4.0774 10.0833 4.58366 10.0833H17.417C17.9233 10.0833 18.3337 10.4937 18.3337 11C18.3337 11.5063 17.9233 11.9167 17.417 11.9167H4.58366C4.0774 11.9167 3.66699 11.5063 3.66699 11ZM3.66699 15.5833C3.66699 15.0771 4.0774 14.6667 4.58366 14.6667H17.417C17.9233 14.6667 18.3337 15.0771 18.3337 15.5833C18.3337 16.0896 17.9233 16.5 17.417 16.5H4.58366C4.0774 16.5 3.66699 16.0896 3.66699 15.5833Z'  /> </svg> \
        </div></a> ` : `<div id='arrow' onclick='history.back(-1)'> <div> \
-       <svg width='28' height='28' viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'>\
-    <path d='M17 5L5.96725 10.092C5.19266 10.4495 5.19266 11.5505 5.96724 11.908L17 17'stroke='white' stroke-width='2' stroke-linecap='round' /></svg> \
+       <svg width='28' height='28' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'>\
+       <path d='M11 1L2.00281 5.08963C1.22121 5.4449 1.22121 6.5551 2.00281 6.91037L11 11'\
+           stroke='white' stroke-width='1.5' stroke-linecap='round' />\
+   </svg> \
        </div> </div>` } \
          <a href='https://corp-st-dev.4lapy.ru/mobile_app'> \
-         <svg width='150' height='30' viewBox='0 0 240 30' fill='none' xmlns='http://www.w3.org/2000/svg'>\
+         <svg width='200' height='30' viewBox='0 0 240 30' fill='none' xmlns='http://www.w3.org/2000/svg'>\
          <path\
              d='M72.3656 16.7606H57.7757C57.6882 18.2626 59.1063 20.1388 60.9096 20.9462C63.3724 22.0564 65.6659 21.4152 68.0645 18.9157L70.8541 21.0056C69.5597 22.8321 67.6548 24.1155 65.4967 24.6153C59.4098 26.0105 53.6031 21.9199 53.8248 14.6173C53.9357 10.4257 56.2526 6.99409 59.8358 5.71168C64.5863 3.97806 71.5836 5.9551 72.4298 13.7564C72.4604 14.7582 72.439 15.761 72.3656 16.7606ZM68.5839 13.3052C68.3154 10.6335 65.8235 8.55554 62.9639 8.60897C60.3727 8.65647 57.7757 10.9422 57.6357 13.3052H68.5839Z'\
              fill='#1D1D1B' />\
@@ -150,7 +154,7 @@ setTimeout
 
        inAppBrowserRef.insertCSS({code: "body{transition: opacity 0.6s ease} \
                                         #block{margin-bottom: 100px}\
-                                        #menu_item{ position: fixed; background: #e0e0e0;width: 100%;height: 50px; display: flex;justify-content: space-around;align-items: center; z-index: 25}\
+                                        #menu_item{ position: fixed; background: #EFEFEF;width: 100%;height: 50px; display: flex;justify-content: space-around;align-items: center; z-index: 25}\
                                        #menu_item a{display:block}\
                                        #first span{background: white; width: 30px; height: 2px; display: block; margin-bottom: 5px} \
                                        #search a{color: black; text-decoration: none} #logoImg {width: 150px; }\
