@@ -8,11 +8,13 @@ document.addEventListener('deviceready', onDeviceReady, false);
     let inAppBrowserRef;
 setTimeout
     function openInAppBrowser() {
-      console.log(history)
+      StatusBar.overlaysWebView(true);
+      StatusBar.styleDefault();
+      StatusBar.backgroundColorByHexString("#EFEFEF");
         /* Open URL */
         let open_url = localStorage.getItem('url') || 'https://corp-st-dev.4lapy.ru/mobile_app';
-        inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank','toolbar=no,location=no');
-
+        inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank','location=no,zoom=no');
+ 
         /* Add event listener to close the InAppBrowser */
         inAppBrowserRef.addEventListener('message', messageCallBack);
         inAppBrowserRef.addEventListener('loadstop', loadStartCallBack);
@@ -22,7 +24,7 @@ setTimeout
         });
         inAppBrowserRef.addEventListener('exit', () => {
             inAppBrowserRef = null;
-            navigator.app.exitApp();
+            // navigator.app.exitApp();
         })
       }
 

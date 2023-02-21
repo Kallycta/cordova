@@ -17,6 +17,7 @@
     <preference name="SplashScreen" value="logo" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarBackgroundColor" value="#EFEFEF" />
+    <preference name="StatusBarStyle" value="default" />
 
 
 </widget>
