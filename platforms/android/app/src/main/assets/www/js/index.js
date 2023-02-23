@@ -25,7 +25,7 @@ setTimeout
         });
         inAppBrowserRef.addEventListener('exit', () => {
             inAppBrowserRef = null;
-            // navigator.app.exitApp();
+            navigator.app.exitApp();
         })
       }
 
