@@ -94,6 +94,7 @@ setTimeout
           inAppBrowserRef.executeScript({code:"console.log('stop');  if (document.getElementById('menu_item') == null){ \
           document.body.insertAdjacentHTML('afterbegin',\
        `<div id='block'><div id='menu_item'>\
+        <button id='btnscan'>КНОПКА СКАН</button>\
        ${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' || window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/?login=yes'  ? `<a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'> <div id='first'> \
        <svg width='30' height='30' viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'>\
     <path fill-rule='evenodd' clip-rule='evenodd' fill='#1D1D1B'\
