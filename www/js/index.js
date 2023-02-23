@@ -59,7 +59,6 @@ setTimeout
       function scanBarcode() {
         if(inAppBrowserRef) inAppBrowserRef.close()
         console.log(cordova);
-        console.log('click');
 
         cordova.plugins.barcodeScanner.scan(
             function (result) {
@@ -92,8 +91,7 @@ setTimeout
       function loadStartCallBack() {
 
           inAppBrowserRef.executeScript({code:"console.log('stop');  if (document.getElementById('menu_item') == null){ \
-            console.log(document.cookie.BITRIX_SM_UIDL);\
-            console.log(window.localStorage);\
+          document.querySelector('.important').addEventListener('click', () => console.log('click!') ); \
           document.body.insertAdjacentHTML('afterbegin',\
        `<div id='block'><div id='menu_item'>\
        ${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' || window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/?login=yes'  ? `<a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'> <div id='first'> \
