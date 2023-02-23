@@ -60,11 +60,9 @@ setTimeout
                         "Result: " + result.text + "\n" +
                         "Format: " + result.format + "\n" +
                         "Cancelled: " + result.cancelled);
-                        openInAppBrowser()
             },
             function (error) {
                 alert("Scanning failed: " + error);
-                openInAppBrowser()
             },
             {
                 preferFrontCamera : true, // iOS and Android

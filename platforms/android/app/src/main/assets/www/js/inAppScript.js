@@ -3,13 +3,13 @@
 if(document.querySelector('.important'))document.querySelector('.important').addEventListener('click', () => console.log('click!') );
 console.log('!!!');
 
-function messageCallBack(params) {
-    /* Close the InAppBrowser if we received the p
-    roper message */
-    if (params.data.action == 'scan') {
-        ScanningBarcode()
-    }
-  }
+// function messageCallBack(params) {
+//     /* Close the InAppBrowser if we received the p
+//     roper message */
+//     if (params.data.action == 'scan') {
+//         ScanningBarcode()
+//     }
+//   }
    function postCordovaMessage(e) {
 
   localStorage.setItem('url', window.location.href)
