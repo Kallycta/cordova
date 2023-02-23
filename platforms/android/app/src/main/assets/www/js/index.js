@@ -59,7 +59,6 @@ setTimeout
 
       function scanBarcode() {
         if(inAppBrowserRef) inAppBrowserRef.close()
-        console.log(cordova);
 
         cordova.plugins.barcodeScanner.scan(
             function (result) {
@@ -160,7 +159,7 @@ setTimeout
                                        #first span{background: white; width: 30px; height: 2px; display: block; margin-bottom: 5px} \
                                        #search a{color: black; text-decoration: none} #logoImg {width: 150px; }\
                                        #arrow svg{color: white; } " });
-        inAppBrowserRef.executeScript({file: 'https://cordova.vercel.app/js/inAppScript.js'})
+        inAppBrowserRef.executeScript({file: 'http://localhost:8000/js/inAppScript.js'})
 
         }
 

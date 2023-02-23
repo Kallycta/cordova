@@ -59,7 +59,6 @@ setTimeout
 
       function scanBarcode() {
         if(inAppBrowserRef) inAppBrowserRef.close()
-        console.log(cordova);
 
         cordova.plugins.barcodeScanner.scan(
             function (result) {

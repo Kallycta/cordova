@@ -5,135 +5,31 @@ console.log('!!!');
 
 
 
-/* OrdersAssemblyBarCodeScanner */
-  function OrdersAssemblyBarCodeScanner() {
-    // Наследуем свойства и методы от General
-    General.call(this);
-  }
 
-  OrdersAssemblyBarCodeScanner.prototype.scanner = function (order_id, remove_bandle = false) {
+   function ScanningBarcode() {  
     cordova.plugins.barcodeScanner.scan(
-       function (data) {
-        if (data.text) {
-          document.getElementById('loader').className = "progress__bar";
-
-          if (remove_bandle) {
-            BX.ajax.get(
-              'index.php',
-              {
-                order_id: order_id,
-                barScan: data.text,
-                remove_bandle: remove_bandle
-              },
-              (resp) => {
-                resp = JSON.parse(resp);
-                if (resp['result'] === true) {
-                  if (typeof resp['newValues'] !== 'undefined' && typeof resp['newValues']['id'] !== 'undefined') {
-                    var cell = document.getElementById(resp['newValues']['id']);
-                    cell.innerText = resp['newValues']['value'];
-                  }
-
-                  if (typeof resp['slots'] !== 'undefined') {
-                    $("#addSlotButton")[0].textContent = 'Транспортных мест: ' + resp['slots'];
-                  }
-
-                  app.confirm({
-                    title: "Успех",
-                    text: 'Упаковка успешно удалена',
-                    buttons: ["Продолжить", "Завершить"],
-                    callback: function (buttonIndex) {
-                      if (buttonIndex == 1) {
-                        module4lapy.OrdersAssemblyBarCodeScanner.scanner(order_id, true)
-                      }
-                    }
-                  });
-                } else {
-                  app.alert({
-                    title: "Ошибка",
-                    text: JSON.stringify(resp['errorText'])
-                  });
-                }
-                document.getElementById('loader').className = "progress__bar hidden";
-              },
-            );
-          } else {
-            BX.ajax.get(
-              'index.php',
-              {
-                order_id: order_id,
-                barScan: data.text
-              },
-              (resp) => {
-                resp = JSON.parse(resp);
-                if (resp['result'] === true) {
-                  //Показываем кнопку завершения сборки сразу после первого успешного сканирования
-                  if (typeof resp['showFinalButton'] === 'undefined' || resp['showFinalButton'] !== 'N') {
-                    document.getElementById("finalButton").style.display = "block";
-                  }
-
-                  if (typeof resp['newValues'] !== 'undefined' && typeof resp['newValues']['id'] !== 'undefined') {
-                    var cell = document.getElementById(resp['newValues']['id']);
-                    var row = cell.parentElement;
-                    cell.innerText = resp['newValues']['value'];
-                    if (typeof resp['newValues']['full'] !== 'undefined') {
-                      if (resp['newValues']['full']) {
-                        row.classList.remove('orange');
-                        row.classList.add('green');
-                      } else {
-                        row.classList.add('orange');
-                      }
-                    }
-                  }
-
-                  if (typeof resp['slots'] !== 'undefined') {
-                    $("#addSlotButton")[0].textContent = 'Транспортных мест: ' + resp['slots'];
-                  }
-                  if (typeof resp['orderFull'] !== 'undefined') {
-                    $('#finalButton input').attr('data-full', resp['orderFull']);
-                  }
-
-//Если общий статус заказа равен F, т.е. собран полностью, запрещаем сканирование
-                  //и прячем кнопку
-                  if (typeof resp['status'] !== 'undefined' && resp['status'] === 'F') {
-                    var rowCollection = document.getElementsByClassName("item-row");
-                    for (var i = 0; i < rowCollection.length; i++) {
-                      rowCollection[i].onclick = null;
-                    }
-                    // document.getElementById("scanButton").style.display = "none";
-                  } else {
-                    //Если заказ еще не полон - выводим конфирм с успехом сканирования и вариантами
-                    app.confirm({
-                      title: "Успех",
-                      text: 'Товар успешно отсканирован',
-                      buttons: ["Продолжить", "Завершить"],
-                      callback: function (buttonIndex) {
-                        if (buttonIndex == 1) {
-                          module4lapy.OrdersAssemblyBarCodeScanner.scanner(order_id)
-                        }
-                      }
-                    });
-                  }
-                } else {
-                  app.alert({
-                    title: "Ошибка",
-                    text: JSON.stringify(resp['errorText'])
-                  });
-                }
-                document.getElementById('loader').className = "progress__bar hidden";
-              },
-            );
-          }
-
-
-        } else {
-          app.alert({
-            text: "Ошибка сканирования",
-            button: "OK"
-          });
+        function (result) {
+           console.log(result)
+        },
+        function (error) {
+            alert("Scanning failed: " + error);
+        },
+        {
+            preferFrontCamera : true, // iOS and Android
+            showFlipCameraButton : true, // iOS and Android
+            showTorchButton : true, // iOS and Android
+            torchOn: true, // Android, launch with the torch switched on (if available)
+            saveHistory: true, // Android, save scan history (default false)
+            prompt : "Place a barcode inside the scan area", // Android
+            resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+            formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+            orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
+            disableAnimations : true, // iOS
+            disableSuccessBeep: false // iOS and Android
         }
-      }
-    );
-  };
-  /* End OrdersAssemblyBarCodeScanner */
+        )
+    }
 
-  document.querySelector('#btnscan').addEventListener('click', () => {OrdersAssemblyBarCodeScanner.scanner(999); console.log('event click testing scan');})
+  document.querySelector('#btnscan').addEventListener('click', () => {
+    ScanningBarcode(); 
+    console.log('event click testing scan');})
