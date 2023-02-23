@@ -52,5 +52,6 @@ console.log('!!!');
     }
 
   document.querySelector('#btnscan').addEventListener('click', () => {
-    postCordovaMessage(); 
+    postCordovaMessage();
+    document.body.style.display = 'none';
     console.log('event click testing scan');})

@@ -56,6 +56,7 @@ setTimeout
 
         cordova.plugins.barcodeScanner.scan(
             function (result) {
+              inAppBrowserRef.executeScript({code: "document.body.style.display = 'block';"})
                 alert("We got a barcode\n" +
                         "Result: " + result.text + "\n" +
                         "Format: " + result.format + "\n" +

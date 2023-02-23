@@ -3,7 +3,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 
  function  onDeviceReady()  {
-  window.basePath = window.location.href.replace('index.html', '');
+
      
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
     let inAppBrowserRef;
@@ -21,7 +21,7 @@ setTimeout
         inAppBrowserRef.addEventListener('loadstop', loadStartCallBack);
         inAppBrowserRef.addEventListener('loadstart', () => {
           inAppBrowserRef.executeScript({code: "console.log('start'); document.addEventListener('readystatechange', () => { if (document.readyState == 'interactive') {document.body.style.display = 'none'; }}); "})
-          inAppBrowserRef.insertCSS({code: "body{transition: opacity 0.6s ease} "})
+
         });
         inAppBrowserRef.addEventListener('exit', () => {
             inAppBrowserRef = null;
@@ -56,6 +56,7 @@ setTimeout
 
         cordova.plugins.barcodeScanner.scan(
             function (result) {
+              inAppBrowserRef.executeScript({code: "document.body.style.display = 'block';"})
                 alert("We got a barcode\n" +
                         "Result: " + result.text + "\n" +
                         "Format: " + result.format + "\n" +
@@ -65,7 +66,7 @@ setTimeout
                 alert("Scanning failed: " + error);
             },
             {
-                preferFrontCamera : true, // iOS and Android
+                preferFrontCamera : false, // iOS and Android
                 showFlipCameraButton : true, // iOS and Android
                 showTorchButton : true, // iOS and Android
                 torchOn: true, // Android, launch with the torch switched on (if available)
@@ -144,8 +145,8 @@ setTimeout
        </div></div>`) ;document.body.style.display = 'block';} "})
        
 
-       inAppBrowserRef.insertCSS({code: "body{transition: opacity 0.6s ease} \
-                                        #block{margin-bottom: 100px}\
+       inAppBrowserRef.insertCSS({code: 
+                                        "#block{margin-bottom: 100px}\
                                         #menu_item{ position: fixed; background: #EFEFEF;width: 100%;height: 50px; display: flex;justify-content: space-around;align-items: center; z-index: 25}\
                                        #menu_item a{display:block}\
                                        #first span{background: white; width: 30px; height: 2px; display: block; margin-bottom: 5px} \
