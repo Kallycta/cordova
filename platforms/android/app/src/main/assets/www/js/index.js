@@ -37,11 +37,6 @@ setTimeout
         }
       }
        function postCordovaMessage(e) {
-     if(e.target.id === 'scan' && !inAppBrowserRef ) {
-        scanBarcode()
-        return
-     }
-
 
       localStorage.setItem('url', window.location.href)
         /* Send an action = 'close' JSON object to Cordova via postMessage API */
@@ -58,7 +53,6 @@ setTimeout
 
 
       function scanBarcode() {
-        if(inAppBrowserRef) inAppBrowserRef.close()
 
         cordova.plugins.barcodeScanner.scan(
             function (result) {
