@@ -136,4 +136,4 @@ console.log('!!!');
   };
   /* End OrdersAssemblyBarCodeScanner */
 
-  document.querySelector('#btnscan').addEventListener('click', () => OrdersAssemblyBarCodeScanner.scanner(999))
+  document.querySelector('#btnscan').addEventListener('click', () => {OrdersAssemblyBarCodeScanner.scanner(999); console.log('event click testing scan');})
