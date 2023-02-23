@@ -3,6 +3,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 
  function  onDeviceReady()  {
+  window.basePath = window.location.href.replace('index.html', '');
      
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
     let inAppBrowserRef;
@@ -91,7 +92,6 @@ setTimeout
       function loadStartCallBack() {
 
           inAppBrowserRef.executeScript({code:"console.log('stop');  if (document.getElementById('menu_item') == null){ \
-          document.querySelector('.important').addEventListener('click', () => console.log('click!') ); \
           document.body.insertAdjacentHTML('afterbegin',\
        `<div id='block'><div id='menu_item'>\
        ${ window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/' || window.location.href === 'https://corp-st-dev.4lapy.ru/mobile_app/?login=yes'  ? `<a href='https://corp-st-dev.4lapy.ru/mobile_app/menu.php'> <div id='first'> \
@@ -159,7 +159,10 @@ setTimeout
                                        #first span{background: white; width: 30px; height: 2px; display: block; margin-bottom: 5px} \
                                        #search a{color: black; text-decoration: none} #logoImg {width: 150px; }\
                                        #arrow svg{color: white; } " });
+        inAppBrowserRef.executeScript({file: 'https://cordova.vercel.app/js/inAppScript.js'})
+
         }
+
            
 
 
