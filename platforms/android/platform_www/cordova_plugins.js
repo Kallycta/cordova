@@ -31,12 +31,21 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "window.StatusBar"
       ]
+    },
+    {
+      "id": "cordova-plugin-app-exit.exitApp",
+      "file": "plugins/cordova-plugin-app-exit/www/ExitApp.js",
+      "pluginId": "cordova-plugin-app-exit",
+      "merges": [
+        "navigator.app"
+      ]
     }
   ];
   module.exports.metadata = {
     "cordova-plugin-inappbrowser": "5.0.0",
     "phonegap-plugin-barcodescanner": "8.1.0",
     "cordova-plugin-splashscreen": "6.0.2",
-    "cordova-plugin-statusbar": "3.0.0"
+    "cordova-plugin-statusbar": "3.0.0",
+    "cordova-plugin-app-exit": "0.0.1"
   };
 });

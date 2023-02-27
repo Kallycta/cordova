@@ -73,6 +73,11 @@
         "parents": {
           "/resources": []
         }
+      },
+      "config.xml": {
+        "parents": {
+          "/*": []
+        }
       }
     }
   },

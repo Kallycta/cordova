@@ -4,7 +4,14 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
  function  onDeviceReady()  {
 
-     
+  document.addEventListener("pause", onPause, false);
+
+
+  function onPause() {
+    if(!localStorage.getItem('url')) {
+      navigator.app.exitApp();
+    }
+  }
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
     let inAppBrowserRef;
 setTimeout
@@ -26,7 +33,10 @@ setTimeout
         });
         inAppBrowserRef.addEventListener('exit', () => {
             inAppBrowserRef = null;
-            // navigator.app.exitApp();
+            if(!localStorage.getItem('url')) {
+              navigator.app.exitApp();
+            }
+          
         })
       }
 
