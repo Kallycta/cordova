@@ -3,9 +3,6 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 
  function  onDeviceReady()  {
-  document.addEventListener("pause", () => console.log('pause'), false);
-  document.addEventListener("resume", console.log('resume'), false);
-
 
      
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
