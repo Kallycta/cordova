@@ -3,6 +3,9 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 
  function  onDeviceReady()  {
+  document.addEventListener("pause", () => console.log('pause'), false);
+  document.addEventListener("resume", console.log('resume'), false);
+
 
      
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
@@ -15,6 +18,7 @@ setTimeout
         /* Open URL */
         let open_url = localStorage.getItem('url') || 'https://corp-st-dev.4lapy.ru/mobile_app';
         inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank','location=no,zoom=no');
+         localStorage.setItem('url', '')
  
         /* Add event listener to close the InAppBrowser */
         inAppBrowserRef.addEventListener('message', messageCallBack);
