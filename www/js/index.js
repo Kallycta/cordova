@@ -25,7 +25,7 @@ setTimeout
         });
         inAppBrowserRef.addEventListener('exit', () => {
             inAppBrowserRef = null;
-            navigator.app.exitApp();
+            // navigator.app.exitApp();
         })
       }
 
@@ -33,8 +33,12 @@ setTimeout
         /* Close the InAppBrowser if we received the p
         roper message */
         if (params.data.action == 'scan') {
+          params.data.url && localStorage.setItem('url',params.data.url)
+          console.log(params.data);
+          inAppBrowserRef.close()
             scanBarcode()
         }
+
       }
        function postCordovaMessage(e) {
 
@@ -53,16 +57,17 @@ setTimeout
 
 
       function scanBarcode() {
-
         cordova.plugins.barcodeScanner.scan(
             function (result) {
-              inAppBrowserRef.executeScript({code: "document.body.style.display = 'block';"})
+              openInAppBrowser()
                 alert("We got a barcode\n" +
                         "Result: " + result.text + "\n" +
                         "Format: " + result.format + "\n" +
                         "Cancelled: " + result.cancelled);
+
             },
             function (error) {
+              openInAppBrowser()
                 alert("Scanning failed: " + error);
             },
             {

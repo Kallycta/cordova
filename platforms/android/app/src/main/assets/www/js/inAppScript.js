@@ -14,7 +14,8 @@ console.log('!!!');
 
   localStorage.setItem('url', window.location.href)
     /* Send an action = 'close' JSON object to Cordova via postMessage API */
-    var message = {action: 'scan'};
+    var message = {action: 'scan', url: `${window.location.href}`};
+    console.log(window.location.href);
     if (!webkit.messageHandlers.cordova_iab) {
       console.warn('Cordova IAB postMessage API not found!');
       throw 'Cordova IAB postMessage API not found!';
@@ -53,5 +54,4 @@ console.log('!!!');
 
   document.querySelector('#btnscan').addEventListener('click', () => {
     postCordovaMessage();
-    document.body.style.display = 'none';
     console.log('event click testing scan');})
