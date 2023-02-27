@@ -15,7 +15,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
     let inAppBrowserRef;
 setTimeout
-    function openInAppBrowser() {
+    function openInAppBrowser(scanInfo = null) {
       StatusBar.overlaysWebView(true);
       StatusBar.styleDefault();
       StatusBar.backgroundColorByHexString("#EFEFEF");
@@ -70,7 +70,7 @@ setTimeout
       function scanBarcode() {
         cordova.plugins.barcodeScanner.scan(
             function (result) {
-              openInAppBrowser()
+              openInAppBrowser('test')
                 alert("We got a barcode\n" +
                         "Result: " + result.text + "\n" +
                         "Format: " + result.format + "\n" +
@@ -78,7 +78,7 @@ setTimeout
 
             },
             function (error) {
-              openInAppBrowser()
+              openInAppBrowser('test')
                 alert("Scanning failed: " + error);
             },
             {
@@ -89,7 +89,7 @@ setTimeout
                 saveHistory: true, // Android, save scan history (default false)
                 prompt : "Place a barcode inside the scan area", // Android
                 resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-                formats : "default", // default: all but PDF_417 and RSS_EXPANDED
+                formats : "QR_CODE,PDF_417,DATA_MATRIX, UPC_A,UPC_E,EAN_8,EAN_13", // default: all but PDF_417 and RSS_EXPANDED
                 orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
                 disableAnimations : true, // iOS
                 disableSuccessBeep: false // iOS and Android
@@ -169,6 +169,8 @@ setTimeout
                                        #search a{color: black; text-decoration: none} #logoImg {width: 150px; }\
                                        #arrow svg{color: white; } " });
         inAppBrowserRef.executeScript({file: 'https://cordova.vercel.app/js/inAppScript.js'})
+
+        scanInfo && inAppBrowserRef.executeScript({code: `localStorage.setItem("scanInfo", ${scanInfo})`})
 
         }
 
