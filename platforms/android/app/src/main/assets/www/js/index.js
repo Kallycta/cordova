@@ -16,6 +16,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
     let inAppBrowserRef;
 setTimeout
     function openInAppBrowser(scanInfo = null) {
+
       StatusBar.overlaysWebView(true);
       StatusBar.styleDefault();
       StatusBar.backgroundColorByHexString("#EFEFEF");
@@ -26,7 +27,7 @@ setTimeout
  
         /* Add event listener to close the InAppBrowser */
         inAppBrowserRef.addEventListener('message', messageCallBack);
-        inAppBrowserRef.addEventListener('loadstop', loadStartCallBack);
+        inAppBrowserRef.addEventListener('loadstop', loadStartCallBack.bind(null, scanInfo));
         inAppBrowserRef.addEventListener('loadstart', () => {
           inAppBrowserRef.executeScript({code: "console.log('start'); document.addEventListener('readystatechange', () => { if (document.readyState == 'interactive') {document.body.style.display = 'none'; }}); "})
 
@@ -70,16 +71,13 @@ setTimeout
       function scanBarcode() {
         cordova.plugins.barcodeScanner.scan(
             function (result) {
-              openInAppBrowser('test')
-                alert("We got a barcode\n" +
-                        "Result: " + result.text + "\n" +
-                        "Format: " + result.format + "\n" +
-                        "Cancelled: " + result.cancelled);
+              openInAppBrowser( JSON.stringify({result: result.text,
+                format: result.format}) )
+              
 
             },
             function (error) {
-              openInAppBrowser('test')
-                alert("Scanning failed: " + error);
+                console.log("Scanning failed: " + error);
             },
             {
                 preferFrontCamera : false, // iOS and Android
@@ -97,7 +95,7 @@ setTimeout
             );
       }
 
-      function loadStartCallBack() {
+      function loadStartCallBack(scanInfo = null) {
 
           inAppBrowserRef.executeScript({code:"console.log('stop');  if (document.getElementById('menu_item') == null){ \
           document.body.insertAdjacentHTML('afterbegin',\
@@ -169,8 +167,8 @@ setTimeout
                                        #search a{color: black; text-decoration: none} #logoImg {width: 150px; }\
                                        #arrow svg{color: white; } " });
         inAppBrowserRef.executeScript({file: 'https://cordova.vercel.app/js/inAppScript.js'})
-
-        scanInfo && inAppBrowserRef.executeScript({code: `localStorage.setItem("scanInfo", ${scanInfo})`})
+      console.log(scanInfo)
+        scanInfo && inAppBrowserRef.executeScript({code: `console.log(JSON.stringify(${scanInfo})); localStorage.setItem("scanInfo", JSON.stringify(${scanInfo}))`})
 
         }
 
@@ -188,3 +186,6 @@ setTimeout
 
 
 onDeviceReady()
+
+
+console.log('{obj: ob1}');
