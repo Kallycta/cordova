@@ -14,6 +14,9 @@
         <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="PushNotification">
+        <param name="android-package" value="com.adobe.phonegap.push.PushPlugin" />
+    </feature>
     <name>HelloCordova</name>
     <description>Sample Apache Cordova App</description>
     <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
@@ -25,7 +28,13 @@
     <allow-navigation href="https://cordova.vercel.app/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+    <resource-file src="google-services.json" target="/app/google-services.json" />
     <preference name="loglevel" value="DEBUG" />
+    <preference name="AndroidXEnabled" value="true" />
+    <preference name="GradlePluginGoogleServicesEnabled" value="true" />
+    <preference name="GradlePluginGoogleServicesVersion" value="4.3.8" />
+    <preference name="GradlePluginKotlinEnabled" value="true" />
+    <preference name="GradlePluginKotlinVersion" value="1.5.20" />
     <preference name="SplashScreen" value="logo" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarBackgroundColor" value="#EFEFEF" />

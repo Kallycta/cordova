@@ -19,6 +19,14 @@
     },
     "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-androidx-adapter": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "@havesource/cordova-plugin-push": {
+      "ANDROIDX_CORE_VERSION": "1.6.+",
+      "FCM_VERSION": "18.+",
+      "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },
   "dependent_plugins": {}

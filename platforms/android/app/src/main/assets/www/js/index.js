@@ -3,13 +3,39 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 
  function  onDeviceReady()  {
+  const push = PushNotification.init({
+    android: {
+    },
+      browser: {
+          pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+      },
+    ios: {
+      alert: "true",
+      badge: "true",
+      sound: "true"
+    },
+    windows: {}
+  });
+
+  
+  push.on('registration', (data) => {
+    console.log(data)
+  });
+  
+  push.on('notification', (data) => {
+   console.log(data)
+  });
+  
+  push.on('error', (e) => {
+   console.log(e)
+  });
 
   document.addEventListener("pause", onPause, false);
 
 
   function onPause() {
     if(!localStorage.getItem('url')) {
-      navigator.app.exitApp();
+      // navigator.app.exitApp();
     }
   }
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
@@ -35,7 +61,7 @@ setTimeout
         inAppBrowserRef.addEventListener('exit', () => {
             inAppBrowserRef = null;
             if(!localStorage.getItem('url')) {
-              navigator.app.exitApp();
+              // navigator.app.exitApp();
             }
           
         })
@@ -187,5 +213,3 @@ setTimeout
 
 onDeviceReady()
 
-
-console.log('{obj: ob1}');

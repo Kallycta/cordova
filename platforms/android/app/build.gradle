@@ -19,10 +19,12 @@
 
 apply plugin: 'com.android.application'
 
+
 if (cordovaConfig.IS_GRADLE_PLUGIN_KOTLIN_ENABLED) {
     apply plugin: 'kotlin-android'
     apply plugin: 'kotlin-android-extensions'
 }
+
 
 buildscript {
     apply from: '../CordovaLib/cordova.gradle'
@@ -58,6 +60,8 @@ buildscript {
     }
 }
 
+
+
 // Allow plugins to declare Maven dependencies via build-extras.gradle.
 allprojects {
     def hasRepositoriesGradle = file('repositories.gradle').exists()
@@ -69,6 +73,7 @@ allprojects {
 
     repositories repos
 }
+
 
 task wrapper(type: Wrapper) {
     gradleVersion = cordovaConfig.GRADLE_VERSION
@@ -190,6 +195,7 @@ android {
         }
         targetSdkVersion cordovaConfig.SDK_VERSION
         compileSdkVersion cordovaConfig.SDK_VERSION
+
     }
 
     lintOptions {
@@ -295,8 +301,12 @@ dependencies {
 
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
-    implementation "com.android.support:support-v4:27.+"
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    implementation "androidx.core:core:1.6.+"
+    implementation "me.leolin:ShortcutBadger:1.1.22@aar"
+    implementation "com.google.firebase:firebase-messaging:18.+"
     // SUB-PROJECT DEPENDENCIES END
+
 }
 
 def addSigningProps(propsFilePath, signingConfig) {
@@ -342,3 +352,4 @@ if (hasProperty('postBuildExtras')) {
 if (cordovaConfig.IS_GRADLE_PLUGIN_GOOGLE_SERVICES_ENABLED) {
     apply plugin: 'com.google.gms.google-services'
 }
+

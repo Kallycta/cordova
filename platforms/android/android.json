@@ -27,6 +27,10 @@
             {
               "xml": "<preference name=\"StatusBarOverlaysWebView\" value=\"true\" />",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"PushNotification\"><param name=\"android-package\" value=\"com.adobe.phonegap.push.PushPlugin\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -41,6 +45,30 @@
             {
               "xml": "<activity android:label=\"Share\" android:name=\"com.google.zxing.client.android.encode.EncodeActivity\" />",
               "count": 1
+            },
+            {
+              "xml": "<activity android:exported=\"true\" android:name=\"com.adobe.phonegap.push.PushHandlerActivity\" android:permission=\"${applicationId}.permission.PushHandlerActivity\" />",
+              "count": 1
+            },
+            {
+              "xml": "<activity android:exported=\"true\" android:name=\"com.adobe.phonegap.push.BackgroundHandlerActivity\" android:permission=\"${applicationId}.permission.BackgroundHandlerActivity\"><intent-filter><action android:name=\"com.adobe.phonegap.push.background.MESSAGING_EVENT\" /><category android:name=\"android.intent.category.DEFAULT\" /></intent-filter></activity>",
+              "count": 1
+            },
+            {
+              "xml": "<receiver android:name=\"com.adobe.phonegap.push.BackgroundActionButtonHandler\" />",
+              "count": 1
+            },
+            {
+              "xml": "<receiver android:name=\"com.adobe.phonegap.push.PushDismissedHandler\" />",
+              "count": 1
+            },
+            {
+              "xml": "<service android:exported=\"true\" android:name=\"com.adobe.phonegap.push.FCMService\"><intent-filter><action android:name=\"com.google.firebase.MESSAGING_EVENT\" /></intent-filter></service>",
+              "count": 1
+            },
+            {
+              "xml": "<service android:exported=\"true\" android:name=\"com.adobe.phonegap.push.PushInstanceIDListenerService\"><intent-filter><action android:name=\"com.google.firebase.INSTANCE_ID_EVENT\" /></intent-filter></service>",
+              "count": 1
             }
           ],
           "/manifest": [
@@ -54,6 +82,22 @@
             },
             {
               "xml": "<uses-feature android:name=\"android.hardware.camera\" android:required=\"true\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
               "count": 1
             }
           ],
@@ -76,7 +120,28 @@
       },
       "config.xml": {
         "parents": {
-          "/*": []
+          "/*": [
+            {
+              "xml": "<preference name=\"AndroidXEnabled\" value=\"true\" />",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"GradlePluginGoogleServicesEnabled\" value=\"true\" />",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"GradlePluginGoogleServicesVersion\" value=\"4.3.8\" />",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"GradlePluginKotlinEnabled\" value=\"true\" />",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"GradlePluginKotlinVersion\" value=\"1.5.20\" />",
+              "count": 1
+            }
+          ]
         }
       }
     }
@@ -93,6 +158,14 @@
       "PACKAGE_NAME": "io.cordova.hellocordova"
     },
     "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-androidx-adapter": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "@havesource/cordova-plugin-push": {
+      "ANDROIDX_CORE_VERSION": "1.6.+",
+      "FCM_VERSION": "18.+",
       "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },
@@ -129,12 +202,22 @@
       "clobbers": [
         "window.StatusBar"
       ]
+    },
+    {
+      "id": "@havesource/cordova-plugin-push.PushNotification",
+      "file": "plugins/@havesource/cordova-plugin-push/www/push.js",
+      "pluginId": "@havesource/cordova-plugin-push",
+      "clobbers": [
+        "PushNotification"
+      ]
     }
   ],
   "plugin_metadata": {
     "cordova-plugin-inappbrowser": "5.0.0",
     "phonegap-plugin-barcodescanner": "8.1.0",
     "cordova-plugin-splashscreen": "6.0.2",
-    "cordova-plugin-statusbar": "3.0.0"
+    "cordova-plugin-statusbar": "3.0.0",
+    "cordova-plugin-androidx-adapter": "1.1.3",
+    "@havesource/cordova-plugin-push": "3.0.1"
   }
 }

@@ -33,11 +33,11 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-app-exit.exitApp",
-      "file": "plugins/cordova-plugin-app-exit/www/ExitApp.js",
-      "pluginId": "cordova-plugin-app-exit",
-      "merges": [
-        "navigator.app"
+      "id": "@havesource/cordova-plugin-push.PushNotification",
+      "file": "plugins/@havesource/cordova-plugin-push/www/push.js",
+      "pluginId": "@havesource/cordova-plugin-push",
+      "clobbers": [
+        "PushNotification"
       ]
     }
   ];
@@ -46,6 +46,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "phonegap-plugin-barcodescanner": "8.1.0",
     "cordova-plugin-splashscreen": "6.0.2",
     "cordova-plugin-statusbar": "3.0.0",
-    "cordova-plugin-app-exit": "0.0.1"
+    "cordova-plugin-androidx-adapter": "1.1.3",
+    "@havesource/cordova-plugin-push": "3.0.1"
   };
 });
