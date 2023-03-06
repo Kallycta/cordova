@@ -36,6 +36,18 @@ header img {
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: linear;
 }
+#goToWeb {
+  display: block;
+  margin: 0 auto;
+  padding: 17px 25px 20px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+  border-radius: 4px;
+  background-color: #fe5000;
+  margin-top: 70%;
+  border: none;
+}
 
 @-webkit-keyframes spin {
   from {

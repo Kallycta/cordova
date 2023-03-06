@@ -1,9 +1,10 @@
 
 document.addEventListener('deviceready', onDeviceReady, false);
 
-
- function  onDeviceReady()  {
-  const push = PushNotification.init({
+  function onDeviceReady()  {
+  let pushId;
+  
+  const push =   PushNotification.init({
     android: {
     },
       browser: {
@@ -18,8 +19,9 @@ document.addEventListener('deviceready', onDeviceReady, false);
   });
 
   
-  push.on('registration', (data) => {
-    console.log(data)
+   push.on('registration', (data) => {
+    pushId = data.registrationId
+    localStorage.setItem("pushId", `${pushId}`)
   });
   
   push.on('notification', (data) => {
@@ -29,9 +31,14 @@ document.addEventListener('deviceready', onDeviceReady, false);
   push.on('error', (e) => {
    console.log(e)
   });
-
+    
+  document.getElementById('goToWeb').addEventListener("click", goToWeb, false);
   document.addEventListener("pause", onPause, false);
 
+  function goToWeb() {
+    const pushId = localStorage.getItem("pushId") || null
+    openInAppBrowser(null, pushId)
+  }
 
   function onPause() {
     if(!localStorage.getItem('url')) {
@@ -41,7 +48,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
     // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
     let inAppBrowserRef;
 setTimeout
-    function openInAppBrowser(scanInfo = null) {
+    function openInAppBrowser(scanInfo = null, pushId = null) {
 
       StatusBar.overlaysWebView(true);
       StatusBar.styleDefault();
@@ -53,9 +60,9 @@ setTimeout
  
         /* Add event listener to close the InAppBrowser */
         inAppBrowserRef.addEventListener('message', messageCallBack);
-        inAppBrowserRef.addEventListener('loadstop', loadStartCallBack.bind(null, scanInfo));
+        inAppBrowserRef.addEventListener('loadstop', loadStartCallBack.bind(null, scanInfo, pushId));
         inAppBrowserRef.addEventListener('loadstart', () => {
-          inAppBrowserRef.executeScript({code: "console.log('start'); document.addEventListener('readystatechange', () => { if (document.readyState == 'interactive') {document.body.style.display = 'none'; }}); "})
+          inAppBrowserRef.executeScript({code: "document.addEventListener('readystatechange', () => { if (document.readyState == 'interactive') {document.body.style.display = 'none'; }}); "})
 
         });
         inAppBrowserRef.addEventListener('exit', () => {
@@ -72,33 +79,19 @@ setTimeout
         roper message */
         if (params.data.action == 'scan') {
           params.data.url && localStorage.setItem('url',params.data.url)
-          console.log(params.data);
           inAppBrowserRef.close()
             scanBarcode()
         }
 
       }
-       function postCordovaMessage(e) {
-
-      localStorage.setItem('url', window.location.href)
-        /* Send an action = 'close' JSON object to Cordova via postMessage API */
-        var message = {action: 'scan'};
-        if (!webkit.messageHandlers.cordova_iab) {
-          console.warn('Cordova IAB postMessage API not found!');
-          throw 'Cordova IAB postMessage API not found!';
-        } else {
-          console.log('Message sent!');
-          webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify(message));
-        }
-      }
-
 
 
       function scanBarcode() {
         cordova.plugins.barcodeScanner.scan(
             function (result) {
+              const pushId = localStorage.getItem('pushId') || null
               openInAppBrowser( JSON.stringify({result: result.text,
-                format: result.format}) )
+                format: result.format}), pushId )
               
 
             },
@@ -121,7 +114,8 @@ setTimeout
             );
       }
 
-      function loadStartCallBack(scanInfo = null) {
+      function loadStartCallBack(scanInfo = null, pushId = null) {
+        console.log(pushId);
 
           inAppBrowserRef.executeScript({code:"console.log('stop');  if (document.getElementById('menu_item') == null){ \
           document.body.insertAdjacentHTML('afterbegin',\
@@ -192,24 +186,27 @@ setTimeout
                                        #first span{background: white; width: 30px; height: 2px; display: block; margin-bottom: 5px} \
                                        #search a{color: black; text-decoration: none} #logoImg {width: 150px; }\
                                        #arrow svg{color: white; } " });
-        inAppBrowserRef.executeScript({file: 'https://cordova.vercel.app/js/inAppScript.js'})
-      console.log(scanInfo)
-        scanInfo && inAppBrowserRef.executeScript({code: `console.log(JSON.stringify(${scanInfo})); localStorage.setItem("scanInfo", JSON.stringify(${scanInfo}))`})
-
+        inAppBrowserRef.executeScript({file: 'https://cordova.vercel.app/js/inAppScript.js'});
+        scanInfo && inAppBrowserRef.executeScript({code: `localStorage.setItem("scanInfo", JSON.stringify(${scanInfo}))`});
+        pushId && inAppBrowserRef.executeScript({code: `localStorage.setItem("pushId", "${pushId}")`});
         }
-
-           
-
-
-    // document.getElementById('browser').addEventListener('click', openInAppBrowser)
-    // document.getElementById('scan').addEventListener('click',postCordovaMessage)
-
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
-    openInAppBrowser()
 
-
+    openInAppBrowser(null, pushId)
 }
-
-
 onDeviceReady()
 
+
+// function postCordovaMessage(e) {
+
+//   localStorage.setItem('url', window.location.href)
+//     /* Send an action = 'close' JSON object to Cordova via postMessage API */
+//     var message = {action: 'scan'};
+//     if (!webkit.messageHandlers.cordova_iab) {
+//       console.warn('Cordova IAB postMessage API not found!');
+//       throw 'Cordova IAB postMessage API not found!';
+//     } else {
+//       console.log('Message sent!');
+//       webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify(message));
+//     }
+//   }
