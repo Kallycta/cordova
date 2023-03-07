@@ -115,9 +115,8 @@ setTimeout
       }
 
       function loadStartCallBack(scanInfo = null, pushId = null) {
-        console.log(pushId);
-
-          inAppBrowserRef.executeScript({code:"console.log('stop');  if (document.getElementById('menu_item') == null){ \
+          inAppBrowserRef.executeScript({code:"if (document.getElementById('menu_item') == null){ \
+            localStorage.setItem('is_new_app', 'true'); \
           document.body.insertAdjacentHTML('afterbegin',\
        `<div id='block'><div id='menu_item'>\
         <button id='btnscan'>КНОПКА СКАН</button>\
@@ -189,6 +188,7 @@ setTimeout
         inAppBrowserRef.executeScript({file: 'https://cordova.vercel.app/js/inAppScript.js'});
         scanInfo && inAppBrowserRef.executeScript({code: `localStorage.setItem("scanInfo", JSON.stringify(${scanInfo}))`});
         pushId && inAppBrowserRef.executeScript({code: `localStorage.setItem("pushId", "${pushId}")`});
+        inAppBrowserRef.executeScript({code: `localStorage.setItem("is_new_app", "true")`});
         }
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
 
