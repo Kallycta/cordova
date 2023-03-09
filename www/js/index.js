@@ -62,7 +62,8 @@ setTimeout
         inAppBrowserRef.addEventListener('message', messageCallBack);
         inAppBrowserRef.addEventListener('loadstop', loadStartCallBack.bind(null, scanInfo, pushId));
         inAppBrowserRef.addEventListener('loadstart', () => {
-          inAppBrowserRef.executeScript({code: "document.addEventListener('readystatechange', () => { if (document.readyState == 'interactive') {document.body.style.display = 'none'; }}); "})
+          inAppBrowserRef.executeScript({code: "document.addEventListener('readystatechange', () => { if (document.readyState == 'interactive')\
+                                       {document.body.style.display = 'none'; }}); "})
 
         });
         inAppBrowserRef.addEventListener('exit', () => {
@@ -189,6 +190,7 @@ setTimeout
         scanInfo && inAppBrowserRef.executeScript({code: `localStorage.setItem("scanInfo", JSON.stringify(${scanInfo}))`});
         pushId && inAppBrowserRef.executeScript({code: `localStorage.setItem("pushId", "${pushId}")`});
         inAppBrowserRef.executeScript({code: `localStorage.setItem("is_new_app", "true")`});
+        inAppBrowserRef.executeScript({code: `console.log(document.getElementById(""))`});
         }
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
 
@@ -210,3 +212,6 @@ onDeviceReady()
 //       webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify(message));
 //     }
 //   }
+
+
+

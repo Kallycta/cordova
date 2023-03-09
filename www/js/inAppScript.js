@@ -1,15 +1,12 @@
 
 
 if(document.querySelector('.important'))document.querySelector('.important').addEventListener('click', () => console.log('click!') );
-console.log('!!!');
+if(document.querySelector('#scanButton')) {
+  document.querySelector(".green").addEventListener('click', () => {
+    postCordovaMessage();
+  })
+}
 
-// function messageCallBack(params) {
-//     /* Close the InAppBrowser if we received the p
-//     roper message */
-//     if (params.data.action == 'scan') {
-//         ScanningBarcode()
-//     }
-//   }
    function postCordovaMessage(e) {
 
   localStorage.setItem('url', window.location.href)
@@ -24,9 +21,6 @@ console.log('!!!');
       webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify(message));
     }
   }
-
-
-
 
    function ScanningBarcode() {  
     cordova.plugins.barcodeScanner.scan(
@@ -54,4 +48,4 @@ console.log('!!!');
 
   document.querySelector('#btnscan').addEventListener('click', () => {
     postCordovaMessage();
-    console.log('event click testing scan');})
+  })
