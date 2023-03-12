@@ -33,19 +33,12 @@ document.addEventListener('deviceready', onDeviceReady, false);
   });
     
   document.getElementById('goToWeb').addEventListener("click", goToWeb, false);
-  document.addEventListener("pause", onPause, false);
 
   function goToWeb() {
     const pushId = localStorage.getItem("pushId") || null
     openInAppBrowser(null, pushId)
   }
 
-  function onPause() {
-    if(!localStorage.getItem('url')) {
-      // navigator.app.exitApp();
-    }
-  }
-    // window.open = cordova.InAppBrowser.open('https://corp-st-dev.4lapy.ru/mobile_app', '_blank', 'location=yes', 'toolbar=no');
     let inAppBrowserRef;
 setTimeout
     function openInAppBrowser(scanInfo = null, pushId = null) {
@@ -62,15 +55,12 @@ setTimeout
         inAppBrowserRef.addEventListener('message', messageCallBack);
         inAppBrowserRef.addEventListener('loadstop', loadStartCallBack.bind(null, scanInfo, pushId));
         inAppBrowserRef.addEventListener('loadstart', () => {
-          inAppBrowserRef.executeScript({code: "document.addEventListener('readystatechange', () => { if (document.readyState == 'interactive') {document.body.style.display = 'none'; }}); "})
+          inAppBrowserRef.executeScript({code: "document.addEventListener('readystatechange', () => { if (document.readyState == 'interactive')\
+                                       {document.body.style.display = 'none'; }}); "})
 
         });
         inAppBrowserRef.addEventListener('exit', () => {
-            inAppBrowserRef = null;
-            if(!localStorage.getItem('url')) {
-              // navigator.app.exitApp();
-            }
-          
+            inAppBrowserRef = null;          
         })
       }
 
@@ -79,21 +69,16 @@ setTimeout
         roper message */
         if (params.data.action == 'scan') {
           params.data.url && localStorage.setItem('url',params.data.url)
-          inAppBrowserRef.close()
+          inAppBrowserRef.hide()
             scanBarcode()
-        }
-
-      }
-
+        }}
 
       function scanBarcode() {
         cordova.plugins.barcodeScanner.scan(
             function (result) {
               const pushId = localStorage.getItem('pushId') || null
-              openInAppBrowser( JSON.stringify({result: result.text,
-                format: result.format}), pushId )
-              
-
+              inAppBrowserRef.executeScript({code: `localStorage.setItem('scanInfo',{result: "${result.text}", format: "${result.format}"})`})
+              inAppBrowserRef.show()
             },
             function (error) {
                 console.log("Scanning failed: " + error);
@@ -177,7 +162,6 @@ setTimeout
          </div>\
        </div></div>`) ;document.body.style.display = 'block';} "})
        
-
        inAppBrowserRef.insertCSS({code: 
                                         "#block{margin-bottom: 100px}\
                                         #menu_item{ position: fixed; background: #EFEFEF;width: 100%;height: 50px; display: flex;justify-content: space-around;align-items: center; z-index: 25}\
@@ -196,17 +180,3 @@ setTimeout
 }
 onDeviceReady()
 
-
-// function postCordovaMessage(e) {
-
-//   localStorage.setItem('url', window.location.href)
-//     /* Send an action = 'close' JSON object to Cordova via postMessage API */
-//     var message = {action: 'scan'};
-//     if (!webkit.messageHandlers.cordova_iab) {
-//       console.warn('Cordova IAB postMessage API not found!');
-//       throw 'Cordova IAB postMessage API not found!';
-//     } else {
-//       console.log('Message sent!');
-//       webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify(message));
-//     }
-//   }
