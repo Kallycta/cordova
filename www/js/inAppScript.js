@@ -21,8 +21,10 @@ if(document.querySelector('#scanButton')) {
   }
 
   document.querySelector('#btnscan').addEventListener('click', () => {
-    postCordovaMessage();
+    // postCordovaMessage();
+    module4lapy.OrdersAssemblyBarCodeScanner.scanner(order_id)
   })
+
 
   /* OrdersAssemblyBarCodeScanner */
   function OrdersAssemblyBarCodeScanner() {
