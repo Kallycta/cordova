@@ -181,3 +181,32 @@ setTimeout
 }
 onDeviceReady()
 
+
+
+let str = ' This is my string!'
+let arr = str.split(' ')
+
+const newArr = arr.map(item => {
+  if(/[a-zA-Z0-9а-яА-Я]/.test(item)) {
+
+    let newStr = item.replace(/[^a-zA-Z0-9а-яА-Я]/g, '').replace(item[0], '') + item[0] + 'ay'
+    return newStr
+  }
+  return item
+
+})
+console.log(newArr);
+console.log(newArr.join(' '))
+
+
+function fibonacci(n) {
+  if(n==0 || n == 1)
+      return n;
+  return fibonacci(n-1) + fibonacci(n-2);
+}
+console.log(
+  fibonacci(9))
+
+
+
+  
