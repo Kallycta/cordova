@@ -77,11 +77,12 @@ setTimeout
         cordova.plugins.barcodeScanner.scan(
             function (result) {
               const pushId = localStorage.getItem('pushId') || null
-              inAppBrowserRef.executeScript({code: `localStorage.setItem('scanInfo',{result: "${result.text}", format: "${result.format}"})`})
+              inAppBrowserRef.executeScript({code: `localStorage.setItem('scanInfo',JSON.stringify({result: "${result.text}", format: "${result.format}"}))`})
               inAppBrowserRef.show()
             },
             function (error) {
                 console.log("Scanning failed: " + error);
+                inAppBrowserRef.show()
             },
             {
                 preferFrontCamera : false, // iOS and Android

@@ -82,6 +82,7 @@ setTimeout
             },
             function (error) {
                 console.log("Scanning failed: " + error);
+                inAppBrowserRef.show()
             },
             {
                 preferFrontCamera : false, // iOS and Android
