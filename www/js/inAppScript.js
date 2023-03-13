@@ -1,8 +1,7 @@
 
 if(document.querySelector('#scanButton')) {
   console.log('have button');
-  if(document.querySelector('.green')) console.log('green have button');
-  document.querySelector(".green").addEventListener('click',postCordovaMessage)
+  document.querySelector("#scanButton").addEventListener('click',postCordovaMessage)
 }
  
    function postCordovaMessage(e) {
