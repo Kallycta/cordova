@@ -6,6 +6,7 @@ if(document.querySelector('#scanButton')) {
 }
  
    function postCordovaMessage(e) {
+    console.log('click green button');
 
   localStorage.setItem('url', window.location.href)
     /* Send an action = 'close' JSON object to Cordova via postMessage API */

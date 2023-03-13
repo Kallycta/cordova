@@ -1,7 +1,22 @@
 
+
 document.addEventListener('deviceready', onDeviceReady, false);
 
   function onDeviceReady()  {
+    window.removeEventListener('storage')
+    // window.addEventListener('storage', event => {
+    //   console.log(event);
+    //  console.log(window.localStorage.getItem('add'))
+    // })
+    document.querySelector('#add').addEventListener('click', () => {
+      window.localStorage.setItem('add', 'add')
+      window.dispatchEvent( new Event('storage') )
+    })
+    document.querySelector('#del').addEventListener('click', () => {
+      window.localStorage.removeItem('add')
+      window.dispatchEvent( new Event('storage') )
+    })
+
   let pushId;
   
   const push =   PushNotification.init({
@@ -21,7 +36,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
   
    push.on('registration', (data) => {
     pushId = data.registrationId
-    localStorage.setItem("pushId", `${pushId}`)
+    window.localStorage.setItem("pushId", `${pushId}`)
   });
   
   push.on('notification', (data) => {
@@ -35,7 +50,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
   document.getElementById('goToWeb').addEventListener("click", goToWeb, false);
 
   function goToWeb() {
-    const pushId = localStorage.getItem("pushId") || null
+    const pushId = window.localStorage.getItem("pushId") || null
     openInAppBrowser(null, pushId)
   }
 
@@ -47,9 +62,9 @@ setTimeout
       StatusBar.styleDefault();
       StatusBar.backgroundColorByHexString("#EFEFEF");
         /* Open URL */
-        let open_url = localStorage.getItem('url') || 'https://corp-st-dev.4lapy.ru/mobile_app';
+        let open_url = window.localStorage.getItem('url') || 'https://corp-st-dev.4lapy.ru/mobile_app';
         inAppBrowserRef = cordova.InAppBrowser.open(open_url, '_blank','location=no,zoom=no');
-         localStorage.setItem('url', '')
+         window.localStorage.setItem('url', '')
  
         /* Add event listener to close the InAppBrowser */
         inAppBrowserRef.addEventListener('message', messageCallBack);
@@ -68,7 +83,7 @@ setTimeout
         /* Close the InAppBrowser if we received the p
         roper message */
         if (params.data.action == 'scan') {
-          params.data.url && localStorage.setItem('url',params.data.url)
+          params.data.url && window.localStorage.setItem('url',params.data.url)
           inAppBrowserRef.hide()
             scanBarcode()
         }}
@@ -76,8 +91,8 @@ setTimeout
       function scanBarcode() {
         cordova.plugins.barcodeScanner.scan(
             function (result) {
-              const pushId = localStorage.getItem('pushId') || null
-              inAppBrowserRef.executeScript({code: `localStorage.setItem('scanInfo',JSON.stringify({result: "${result.text}", format: "${result.format}"}))`})
+              const pushId = window.localStorage.getItem('pushId') || null
+              inAppBrowserRef.executeScript({code: `window.localStorage.setItem('scanInfo',JSON.stringify({text: "${result.text}", format: "${result.format}"})); window.dispatchEvent( new Event('storage') )`})
               inAppBrowserRef.show()
             },
             function (error) {
@@ -102,7 +117,10 @@ setTimeout
 
       function loadStartCallBack(scanInfo = null, pushId = null) {
           inAppBrowserRef.executeScript({code:"if (document.getElementById('menu_item') == null){ \
-            localStorage.setItem('is_new_app', 'true'); \
+            window.addEventListener('storage', event => {\
+              console.log(event)\
+            });\
+           window.localStorage.setItem('is_new_app', 'true'); \
           document.body.insertAdjacentHTML('afterbegin',\
        `<div id='block'><div id='menu_item'>\
         <button id='btnscan'>КНОПКА СКАН</button>\
@@ -171,42 +189,159 @@ setTimeout
                                        #search a{color: black; text-decoration: none} #logoImg {width: 150px; }\
                                        #arrow svg{color: white; } " });
         inAppBrowserRef.executeScript({file: 'https://cordova.vercel.app/js/inAppScript.js'});
-        scanInfo && inAppBrowserRef.executeScript({code: `localStorage.setItem("scanInfo", JSON.stringify(${scanInfo}))`});
-        pushId && inAppBrowserRef.executeScript({code: `localStorage.setItem("pushId", "${pushId}")`});
-        inAppBrowserRef.executeScript({code: `localStorage.setItem("is_new_app", "true")`});
+        scanInfo && inAppBrowserRef.executeScript({code: `window.localStorage.setItem("scanInfo", JSON.stringify(${scanInfo}))`});
+        pushId && inAppBrowserRef.executeScript({code: `window.localStorage.setItem("pushId", "${pushId}")`});
+        inAppBrowserRef.executeScript({code: `window.localStorage.setItem("is_new_app", "true")`});
         }
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
 
     openInAppBrowser(null, pushId)
+
 }
 onDeviceReady()
 
 
 
-let str = ' This is my string!'
-let arr = str.split(' ')
-
-const newArr = arr.map(item => {
-  if(/[a-zA-Z0-9а-яА-Я]/.test(item)) {
-
-    let newStr = item.replace(/[^a-zA-Z0-9а-яА-Я]/g, '').replace(item[0], '') + item[0] + 'ay'
-    return newStr
-  }
-  return item
-
-})
-console.log(newArr);
-console.log(newArr.join(' '))
 
 
-function fibonacci(n) {
-  if(n==0 || n == 1)
-      return n;
-  return fibonacci(n-1) + fibonacci(n-2);
+
+
+
+/* OrdersAssemblyBarCodeScanner */
+function OrdersAssemblyBarCodeScanner() {
+  // Наследуем свойства и методы от General
+  General.call(this);
 }
-console.log(
-  fibonacci(9))
 
+OrdersAssemblyBarCodeScanner.prototype.scanner = function (order_id, remove_bandle = false) {
+  window.removeEventListener('storage', getBarcodeFromLocStorage)
+  window.addEventListener('storage',getBarcodeFromLocStorage.bind(null, order_id, remove_bandle) )
 
-
+   function getBarcodeFromLocStorage(order_id, remove_bandle = false) {
+    if(window.localStorage.getItem('scanInfo')) {
+      const data = JSON.parse(window.localStorage.getItem('scanInfo'))
+      window.localStorage.removeItem('scanInfo')
+      
+      if (data.text) {
+        document.getElementById('loader').className = "progress__bar";
   
+        if (remove_bandle) {
+          BX.ajax.get(
+            'index.php',
+            {
+              order_id: order_id,
+              barScan: data.text,
+              remove_bandle: remove_bandle
+            },
+            (resp) => {
+              resp = JSON.parse(resp);
+              if (resp['result'] === true) {
+                if (typeof resp['newValues'] !== 'undefined' && typeof resp['newValues']['id'] !== 'undefined') {
+                  var cell = document.getElementById(resp['newValues']['id']);
+                  cell.innerText = resp['newValues']['value'];
+                }
+  
+                if (typeof resp['slots'] !== 'undefined') {
+                  $("#addSlotButton")[0].textContent = 'Транспортных мест: ' + resp['slots'];
+                }
+  
+                app.confirm({
+                  title: "Успех",
+                  text: 'Упаковка успешно удалена',
+                  buttons: ["Продолжить", "Завершить"],
+                  callback: function (buttonIndex) {
+                    if (buttonIndex == 1) {
+                      module4lapy.OrdersAssemblyBarCodeScanner.scanner(order_id, true)
+                    }
+                  }
+                });
+              } else {
+                app.alert({
+                  title: "Ошибка",
+                  text: JSON.stringify(resp['errorText'])
+                });
+              }
+              document.getElementById('loader').className = "progress__bar hidden";
+            },
+          );
+        } else {
+          BX.ajax.get(
+            'index.php',
+            {
+              order_id: order_id,
+              barScan: data.text
+            },
+            (resp) => {
+              resp = JSON.parse(resp);
+              if (resp['result'] === true) {
+                //Показываем кнопку завершения сборки сразу после первого успешного сканирования
+                if (typeof resp['showFinalButton'] === 'undefined' || resp['showFinalButton'] !== 'N') {
+                  document.getElementById("finalButton").style.display = "block";
+                }
+  
+                if (typeof resp['newValues'] !== 'undefined' && typeof resp['newValues']['id'] !== 'undefined') {
+                  var cell = document.getElementById(resp['newValues']['id']);
+                  var row = cell.parentElement;
+                  cell.innerText = resp['newValues']['value'];
+                  if (typeof resp['newValues']['full'] !== 'undefined') {
+                    if (resp['newValues']['full']) {
+                      row.classList.remove('orange');
+                      row.classList.add('green');
+                    } else {
+                      row.classList.add('orange');
+                    }
+                  }
+                }
+  
+                if (typeof resp['slots'] !== 'undefined') {
+                  $("#addSlotButton")[0].textContent = 'Транспортных мест: ' + resp['slots'];
+                }
+                if (typeof resp['orderFull'] !== 'undefined') {
+                  $('#finalButton input').attr('data-full', resp['orderFull']);
+                }
+  
+                //Если общий статус заказа равен F, т.е. собран полностью, запрещаем сканирование
+                //и прячем кнопку
+                if (typeof resp['status'] !== 'undefined' && resp['status'] === 'F') {
+                  var rowCollection = document.getElementsByClassName("item-row");
+                  for (var i = 0; i < rowCollection.length; i++) {
+                    rowCollection[i].onclick = null;
+                  }
+                  // document.getElementById("scanButton").style.display = "none";
+                } else {
+                  //Если заказ еще не полон - выводим конфирм с успехом сканирования и вариантами
+                  app.confirm({
+                    title: "Успех",
+                    text: 'Товар успешно отсканирован',
+                    buttons: ["Продолжить", "Завершить"],
+                    callback: function (buttonIndex) {
+                      if (buttonIndex == 1) {
+                        module4lapy.OrdersAssemblyBarCodeScanner.scanner(order_id)
+                      }
+                    }
+                  });
+                }
+              } else {
+                app.alert({
+                  title: "Ошибка",
+                  text: JSON.stringify(resp['errorText'])
+                });
+              }
+              document.getElementById('loader').className = "progress__bar hidden";
+            },
+          );
+        }
+  
+        
+      } else {
+        app.alert({
+          text: "Ошибка сканирования",
+          button: "OK"
+        });
+      }
+    }
+   
+   }
+      
+};
+/* End OrdersAssemblyBarCodeScanner */
