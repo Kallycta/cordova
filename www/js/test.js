@@ -14,9 +14,11 @@ function OrdersAssemblyBarCodeScanner() {
         window.localStorage.removeItem('scanInfo')
         
         if (data.text) {
+            console.log(data, order_id);
           document.getElementById('loader').className = "progress__bar";
     
           if (remove_bandle) {
+            console.log('отправка скрпита через БХ ajax get');
             BX.ajax.get(
               'index.php',
               {
@@ -25,6 +27,7 @@ function OrdersAssemblyBarCodeScanner() {
                 remove_bandle: remove_bandle
               },
               (resp) => {
+                console.log(resp + 'resp ответ получен');
                 resp = JSON.parse(resp);
                 if (resp['result'] === true) {
                   if (typeof resp['newValues'] !== 'undefined' && typeof resp['newValues']['id'] !== 'undefined') {
@@ -56,6 +59,7 @@ function OrdersAssemblyBarCodeScanner() {
               },
             );
           } else {
+            console.log('подготовка к отправке BX аякс гет, в блоке елс');
             BX.ajax.get(
               'index.php',
               {
@@ -63,6 +67,7 @@ function OrdersAssemblyBarCodeScanner() {
                 barScan: data.text
               },
               (resp) => {
+                console.log(resp  + 'resp получен');
                 resp = JSON.parse(resp);
                 if (resp['result'] === true) {
                   //Показываем кнопку завершения сборки сразу после первого успешного сканирования
