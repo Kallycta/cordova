@@ -4,7 +4,7 @@ if(document.querySelector('#scanButton')) {
     postCordovaMessage();
   })
 }
-
+ 
    function postCordovaMessage(e) {
 
   localStorage.setItem('url', window.location.href)
