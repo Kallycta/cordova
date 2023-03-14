@@ -561,15 +561,16 @@ console.log('start');
 	app.alert = function (params)
 	{
 
-		// if (!this.available)
-		// {
-        //     console.log('первый иф в апп');
-		// 	document.addEventListener("deviceready", BX.proxy(function ()
-		// 	{
-		// 		this.alert(params)
-		// 	}, this), false);
-		// 	return;
-		// }Ы
+		if (!this.available)
+		{
+            console.log(this.available);
+			console.log(this);
+			document.addEventListener("deviceready", BX.proxy(function ()
+			{
+				this.alert(params)
+			}, this), false);
+			return;
+		}
 
 
 		var alertData = {
