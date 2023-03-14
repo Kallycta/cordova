@@ -500,14 +500,14 @@ console.log('start');
 	 */
 	app.confirm = function (params)
 	{
-		if (!this.available)
-		{
-			document.addEventListener("deviceready", BX.proxy(function ()
-			{
-				this.confirm(params)
-			}, this), false);
-			return;
-		}
+		// if (!this.available)
+		// {
+		// 	document.addEventListener("deviceready", BX.proxy(function ()
+		// 	{
+		// 		this.confirm(params)
+		// 	}, this), false);
+		// 	return;
+		// }
 
 		var confirmData = {
 			callback: function ()
@@ -541,7 +541,9 @@ console.log('start');
 			if (params.callback && typeof(params.callback) == "function")
 				confirmData.callback = params.callback;
 		}
-
+		console.log(navigator);
+        console.log(navigator.notification);
+		
 		navigator.notification.confirm(
 			confirmData.text,
 			confirmData.callback,
