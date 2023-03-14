@@ -117,11 +117,30 @@ function OrdersAssemblyBarCodeScanner() {
                       }
                     });
                   }
-                } else {
-                  app.alert({
-                    title: "Ошибка",
-                    text: JSON.stringify(resp['errorText'])
-                  });
+                } 
+                else {
+                    console.log('пред последний элс');
+                 
+  
+                  // let home = {
+                  //   title: "Ошибка",
+                  //   text: JSON.stringify(resp['errorText'])
+                  // }
+              //     BX.addCustomEvent("customAlert", function(){
+              //       console.log(app)
+              //       // console.log(app.alert)
+               
+              //       app.alert({text: 'Test alert app', button: 'OK!'})
+               
+              // });
+              // let event = new Event("customAlert", {bubbles: true}); // (2)
+              // window.dispatchEvent(event);
+                  console.log(navigator)
+                  console.log(navigator.notification)
+                  console.log(app)
+                  // console.log(app.alert)
+                  // navigator.notification.alert('test alert!', function (){}, '', '')
+                  app.alert({text: 'Test alert app', button: 'OK!'})
                 }
                 document.getElementById('loader').className = "progress__bar hidden";
               },
@@ -130,10 +149,14 @@ function OrdersAssemblyBarCodeScanner() {
     
           
         } else {
-          app.alert({
-            text: "Ошибка сканирования",
-            button: "OK"
-          });
+            console.log('последний элс');
+
+        // let home = {
+        //     text: "Ошибка сканирования",
+        //     button: "OK"
+        //   }
+        navigator.notification.alert('test alert!', function (){}, '', '')
+          // alert(Object.entries(home).join('\n'));
         }
       }
      

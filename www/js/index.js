@@ -3,6 +3,7 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 
   function onDeviceReady()  {
+
     window.removeEventListener('storage')
     // window.addEventListener('storage', event => {
     //   console.log(event);
@@ -100,18 +101,18 @@ setTimeout
                 inAppBrowserRef.show()
             },
             {
-                preferFrontCamera : false, // iOS and Android
-                showFlipCameraButton : true, // iOS and Android
-                showTorchButton : true, // iOS and Android
-                torchOn: true, // Android, launch with the torch switched on (if available)
-                saveHistory: true, // Android, save scan history (default false)
-                prompt : "Place a barcode inside the scan area", // Android
-                resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-                formats : "QR_CODE,PDF_417,DATA_MATRIX, UPC_A,UPC_E,EAN_8,EAN_13", // default: all but PDF_417 and RSS_EXPANDED
-                orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
-                disableAnimations : true, // iOS
-                disableSuccessBeep: false // iOS and Android
-            }
+              preferFrontCamera : false, // iOS and Android
+              showFlipCameraButton : true, // iOS and Android
+              showTorchButton : true, // iOS and Android
+              torchOn: true, // Android, launch with the torch switched on (if available)
+              saveHistory: false, // Android, save scan history (default false)
+              prompt : "Разместите штрихкод в зоне сканирования", // Android
+              resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+              formats : "QR_CODE,PDF_417,DATA_MATRIX, UPC_A,UPC_E,EAN_8,EAN_13", // default: all but PDF_417 and RSS_EXPANDED
+              orientation : "default", // Android only (portrait|landscape), default unset so it rotates with the device
+              disableAnimations : true, // iOS
+              disableSuccessBeep: false // iOS and Android
+          }
             );
       }
 
@@ -189,6 +190,12 @@ setTimeout
                                        #search a{color: black; text-decoration: none} #logoImg {width: 150px; }\
                                        #arrow svg{color: white; } " });
         inAppBrowserRef.executeScript({file: 'https://cordova.vercel.app/js/inAppScript.js'});
+        inAppBrowserRef.executeScript({file: 'https://cordova.vercel.app/js/bitrix_mobile.js'});
+        inAppBrowserRef.executeScript({file: 'https://corp-st-dev.4lapy.ru/bitrix/js/mobileapp/mobile_lib.js'});
+        inAppBrowserRef.executeScript({file: 'https://corp-st-dev.4lapy.ru/bitrix/js/mobileapp/cordova_plugins/org.apache.cordova.dialogs/www/notification.js'});
+        inAppBrowserRef.executeScript({file: 'https://corp-st-dev.4lapy.ru/bitrix/js/mobileapp/__deviceload__/cordova.js'});
+     
+
         scanInfo && inAppBrowserRef.executeScript({code: `window.localStorage.setItem("scanInfo", JSON.stringify(${scanInfo}))`});
         pushId && inAppBrowserRef.executeScript({code: `window.localStorage.setItem("pushId", "${pushId}")`});
         inAppBrowserRef.executeScript({code: `window.localStorage.setItem("is_new_app", "true")`});
