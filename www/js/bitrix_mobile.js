@@ -1,7 +1,7 @@
-/**
- * @requires module:mobilelib
- * @module mobileapp
- */
+// /**
+//  * @requires module:mobilelib
+//  * @module mobileapp
+//  */
 ;
 console.log('start');
 (function ()
