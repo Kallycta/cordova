@@ -27,12 +27,6 @@ if(document.querySelector('#scanButton')) {
   
 
 
-
-  /**
- * @requires module:mobilelib
- * @module mobileapp
- */
-;
 console.log('start');
 (function ()
 {
