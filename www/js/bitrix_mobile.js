@@ -595,7 +595,7 @@ console.log('start');
 				// var _buttonLabel = (buttonLabel && typeof buttonLabel === 'string' ? buttonLabel : 'OK');
 				// exec(completeCallback, null, 'Notification', 'alert', [_message, _title, _buttonLabel]);
 				// Cordova.exec(alertData.callback, null, 'Notification', 'alert', [alertData.text, alertData.title, alertData.button])
-				cordova.exec(alertData.callback, null, 'Notification', 'alert', [alertData.text, alertData.title, alertData.button])
+				window.cordova.exec(alertData.callback, null, 'Notification', 'alert', [alertData.text, alertData.title, alertData.button])
 			}
 
 			alert1(params)
