@@ -500,15 +500,14 @@ console.log('start');
 	 */
 	app.confirm = function (params)
 	{
-		// if (!this.available)
-		// {
-		// 	document.addEventListener("deviceready", BX.proxy(function ()
-		// 	{
-		// 		this.confirm(params)
-		// 	}, this), false);
-		// 	return;
-		// }
-		 console.log('start2');
+		if (!this.available)
+		{
+			document.addEventListener("deviceready", BX.proxy(function ()
+			{
+				this.confirm(params)
+			}, this), false);
+			return;
+		}
 
 		var confirmData = {
 			callback: function ()
@@ -542,8 +541,6 @@ console.log('start');
 			if (params.callback && typeof(params.callback) == "function")
 				confirmData.callback = params.callback;
 		}
-		console.log(navigator);
-        console.log(navigator.notification);
 
 		navigator.notification.confirm(
 			confirmData.text,
@@ -560,15 +557,15 @@ console.log('start');
 	app.alert = function (params)
 	{
 
-		if (!this.available)
-		{
-            console.log('первый иф в апп');
-			document.addEventListener("deviceready", BX.proxy(function ()
-			{
-				this.alert(params)
-			}, this), false);
-			return;
-		}
+		// if (!this.available)
+		// {
+        //     console.log('первый иф в апп');
+		// 	document.addEventListener("deviceready", BX.proxy(function ()
+		// 	{
+		// 		this.alert(params)
+		// 	}, this), false);
+		// 	return;
+		// }
 
 
 		var alertData = {
