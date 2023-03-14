@@ -137,7 +137,7 @@ function OrdersAssemblyBarCodeScanner() {
               // window.dispatchEvent(event);
                   console.log(navigator)
                   console.log(navigator.notification)
-                  console.log(app)
+                  // console.log(app)
                   // console.log(app.alert)
                   // navigator.notification.alert('test alert!', function (){}, '', '')
                   app.alert({text: 'Test alert app', button: 'OK!'})

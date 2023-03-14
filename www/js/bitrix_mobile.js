@@ -565,9 +565,43 @@ console.log('start');
 		{
             console.log(this.available);
 			console.log(this);
+			function alert (params) {
+				var alertData = {
+					callback: function ()
+					{
+					},
+					title: "",
+					button: "",
+					text: ""
+				};
+		
+				if (typeof params == "object")
+				{
+					if (params.title)
+						alertData.title = params.title;
+					if (params.button)
+						alertData.button = params.button;
+					if (params.text)
+						alertData.text = params.text;
+					if (params.callback && typeof(params.callback) == "function")
+						alertData.callback = params.callback;
+				}
+				else
+				{
+					alertData.text = params;
+				}
+				// var _message = (typeof message === 'string' ? message : JSON.stringify(message));
+				// var _title = (typeof title === 'string' ? title : 'Alert');
+				// var _buttonLabel = (buttonLabel && typeof buttonLabel === 'string' ? buttonLabel : 'OK');
+				// exec(completeCallback, null, 'Notification', 'alert', [_message, _title, _buttonLabel]);
+				Cordova.exec(alertData.callback, null, 'Notification', 'alert', [alertData.text, alertData.title, alertData.button])
+			}
+
+			
 			document.addEventListener("deviceready", BX.proxy(function ()
 			{
-				this.alert(params)
+
+				alert(params)
 			}, this), false);
 			return;
 		}
