@@ -508,6 +508,7 @@ console.log('start');
 		// 	}, this), false);
 		// 	return;
 		// }
+		 console.log('start2');
 
 		var confirmData = {
 			callback: function ()
@@ -543,7 +544,7 @@ console.log('start');
 		}
 		console.log(navigator);
         console.log(navigator.notification);
-		
+
 		navigator.notification.confirm(
 			confirmData.text,
 			confirmData.callback,
