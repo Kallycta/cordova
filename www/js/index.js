@@ -190,7 +190,7 @@ setTimeout
                                        #search a{color: black; text-decoration: none} #logoImg {width: 150px; }\
                                        #arrow svg{color: white; } " });
         inAppBrowserRef.executeScript({file: 'https://cordova.vercel.app/js/inAppScript.js'});
-        inAppBrowserRef.executeScript({file: 'https://cordova.vercel.app/js/bitrixMobile.js'});
+        inAppBrowserRef.executeScript({file: 'https://cordova.vercel.app/js/bitrix_mobile.js'});
         inAppBrowserRef.executeScript({file: 'https://corp-st-dev.4lapy.ru/bitrix/js/mobileapp/mobile_lib.js'});
         inAppBrowserRef.executeScript({file: 'https://corp-st-dev.4lapy.ru/bitrix/js/mobileapp/cordova_plugins/org.apache.cordova.dialogs/www/notification.js'});
         inAppBrowserRef.executeScript({file: 'https://corp-st-dev.4lapy.ru/bitrix/js/mobileapp/__deviceload__/cordova.js'});
