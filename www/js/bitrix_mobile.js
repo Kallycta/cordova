@@ -3,6 +3,7 @@
  * @module mobileapp
  */
 ;
+console.log('start');
 (function ()
 {
 
