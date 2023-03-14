@@ -597,7 +597,7 @@ console.log('start');
 				Cordova.exec(alertData.callback, null, 'Notification', 'alert', [alertData.text, alertData.title, alertData.button])
 			}
 
-			
+			alert(params)
 			document.addEventListener("deviceready", BX.proxy(function ()
 			{
 
