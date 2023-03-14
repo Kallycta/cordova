@@ -565,7 +565,7 @@ console.log('start');
 		{
             console.log(this.available);
 			console.log(this);
-			function alert (params) {
+			function alert1(params) {
 				var alertData = {
 					callback: function ()
 					{
@@ -597,11 +597,11 @@ console.log('start');
 				Cordova.exec(alertData.callback, null, 'Notification', 'alert', [alertData.text, alertData.title, alertData.button])
 			}
 
-			alert(params)
+			alert1(params)
 			document.addEventListener("deviceready", BX.proxy(function ()
 			{
 
-				alert(params)
+				alert1(params)
 			}, this), false);
 			return;
 		}
