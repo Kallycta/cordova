@@ -596,7 +596,7 @@ console.log('start');
 				// exec(completeCallback, null, 'Notification', 'alert', [_message, _title, _buttonLabel]);
 				// Cordova.exec(alertData.callback, null, 'Notification', 'alert', [alertData.text, alertData.title, alertData.button])
 				console.log(window.BXCordovaPlugin.prototype.exec);
-				window.BXCordovaPlugin.prototype.exec(alertData.callback, null, 'Notification', 'alert', [alertData.text, alertData.title, alertData.button])
+				window.BXCordovaPlugin.prototype.exec('alert', params)
 			}
 
 			alert1(params)
