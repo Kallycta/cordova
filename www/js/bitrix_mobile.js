@@ -595,8 +595,8 @@ console.log('start');
 				// var _buttonLabel = (buttonLabel && typeof buttonLabel === 'string' ? buttonLabel : 'OK');
 				// exec(completeCallback, null, 'Notification', 'alert', [_message, _title, _buttonLabel]);
 				// Cordova.exec(alertData.callback, null, 'Notification', 'alert', [alertData.text, alertData.title, alertData.button])
-				console.log(window.BXCordovaPlugin.prototype.exec);
-				window.BXCordovaPlugin.prototype.exec('alert', params)
+
+				this.exec('alert', params)
 			}
 
 			alert1(params)

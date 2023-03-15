@@ -352,3 +352,7 @@ OrdersAssemblyBarCodeScanner.prototype.scanner = function (order_id, remove_band
       
 };
 /* End OrdersAssemblyBarCodeScanner */
+
+
+
+
